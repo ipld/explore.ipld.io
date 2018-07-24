@@ -27,8 +27,15 @@ class ExplorePage extends React.Component {
   }
 
   render () {
-    let {explore, exploreIsLoading} = this.props
-    if (!explore && !exploreIsLoading) return <StartExploringPage />
+    let {explore, exploreIsLoading, explorePathFromHash} = this.props
+    if (!explorePathFromHash) {
+      // No IPLD path to explore so show the intro page
+      return <StartExploringPage />
+    }
+    // Hide the old data while we navigate to the new. We can get much fancier
+    // with showing that the request is loading, but for now, this'l hide the
+    // now stale info and show a loading spinner.
+    explore = explore || {}
     explore = exploreIsLoading ? {} : explore
     const {targetNode, localPath, nodes, pathBoundaries} = explore
     const sourceNode = (nodes && nodes[0]) || null
@@ -81,4 +88,4 @@ class ExplorePage extends React.Component {
   }
 }
 
-export default connect('selectRouteParams', 'selectExploreIsLoading', 'selectExplore', 'selectHash', 'doUpdateHash', ExplorePage)
+export default connect('selectRouteParams', 'selectExploreIsLoading', 'selectExplore', 'selectExplorePathFromHash', 'doUpdateHash', ExplorePage)
