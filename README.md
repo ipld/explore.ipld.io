@@ -1,18 +1,12 @@
-# IPFS WebUI - Next
+# IPLD Explorer
 
 ![Screenshot of IPLD explorer page](https://user-images.githubusercontent.com/58871/41230416-a4c93376-6d77-11e8-9cab-0d4a1c103d27.png)
 
-> IPFS WebUI reboot. A new frontend for your IPFS node.
+> Explore the Merkle Forest from the comfort of your browser.
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg)](https://protocol.ai/) [![](https://img.shields.io/badge/project-IPFS-blue.svg)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg)](http://webchat.freenode.net/?channels=%23ipfs) [![Build Status](https://travis-ci.org/ipfs-shipyard/ipfs-webui.svg?branch=revamp)](https://travis-ci.org/ipfs-shipyard/ipfs-webui) [![dependencies Status](https://david-dm.org/ipfs-shipyard/ipfs-webui/revamp/status.svg)](https://david-dm.org/ipfs-shipyard/ipfs-webui/revamp)
 
 ## Background
-
-### This is pre-release software.
-
-The current IPFS webui is here: https://github.com/ipfs-shipyard/ipfs-webui
-
-This repo is part of the IPFS GUI redesign project, described here: https://github.com/ipfs-shipyard/pm-ipfs-gui
 
 The app accesses a local IPFS daemon via [`window.ipfs-fallback`](https://github.com/tableflip/window.ipfs-fallback). It will use the `window.ipfs` api provided by the [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) web-extension where available, and fallback to using [js-ipfs-api](https://github.com/ipfs/js-ipfs-api)
 
@@ -83,35 +77,6 @@ The following command will perform [`standard`](https://standardjs.com/) linting
 npm run lint
 ```
 
-### End-to-end tests
-
-The end-to-end tests (e2e) test the full app in a headless Chromium browser. They require an http server be running to serve the app.
-
-In dev, run `npm start` in another shell before starting the tests
-
-```
-# Run the end-to-end tests
-npm run test:e2e
-```
-
-By default the test run headless, so you won't see the the browser. To debug test errors, it can be helpful to see the robot clicking around the site. To disable headless mode and see the browser, set the environment variable `DEBUG=true`
-
-```
-# See the end-to-end tests in a browser
-DEBUG=true npm run test:e2e
-```
-
-### CI
-
-In a continuous integration environment we lint the code, run the unit tests, build the app, start an http server and run the unit e2e tests.
-
-```sh
-npm run lint
-npm test
-npm run build
-npm run test:ci:e2e
-```
-
 ### Coverage
 
 To do a single run of the tests and generate a coverage report, run the following:
@@ -120,9 +85,10 @@ To do a single run of the tests and generate a coverage report, run the followin
 npm run test:coverage
 ```
 
+
 ## Contribute
 
-Feel free to dive in! [Open an issue](https://github.com/ipfs-shipyard/TBC/issues/new) or submit PRs.
+Feel free to dive in! [Open an issue](https://github.com/ipfs-shipyard/ipld-explorer/issues/new) or submit PRs.
 
 To contribute to IPFS in general, see the [contributing guide](https://github.com/ipfs/community/blob/master/contributing.md).
 

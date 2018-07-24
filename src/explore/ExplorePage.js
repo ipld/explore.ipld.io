@@ -7,6 +7,7 @@ import CidInfo from './cid-info/CidInfo'
 import ObjectInfo from './object-info/ObjectInfo'
 import IpldGraph from './graph/IpldGraphCytoscape'
 import GraphCrumb from './graph-crumb/GraphCrumb'
+import ComponentLoader from '../loader/ComponentLoader'
 
 class ExplorePage extends React.Component {
   constructor (props) {
@@ -26,10 +27,11 @@ class ExplorePage extends React.Component {
   }
 
   render () {
-    const {explore} = this.props
-    if (!explore) return <StartExploringPage />
+    let {explore, exploreIsLoading} = this.props
+    if (!explore && !exploreIsLoading) return <StartExploringPage />
+    explore = exploreIsLoading ? {} : explore
     const {targetNode, localPath, nodes, pathBoundaries} = explore
-    const sourceNode = nodes[0]
+    const sourceNode = (nodes && nodes[0]) || null
     return (
       <div className='nl3 nt4'>
         <Helmet>
@@ -37,11 +39,12 @@ class ExplorePage extends React.Component {
         </Helmet>
         {pathBoundaries && targetNode ? (
           <GraphCrumb
-            className='ml4 mt3 mb3'
+            style={{padding: '15px 0 10px'}}
+            className='ml4'
             cid={sourceNode.cid}
             pathBoundaries={pathBoundaries}
             localPath={localPath} />
-        ) : null}
+        ) : <div style={{height: 54}} /> }
         <div className='dt-l dt--fixed'>
           <div className='dtc-l w-100 w-two-thirds-l pr3-l v-top'>
             {targetNode ? (
@@ -54,7 +57,7 @@ class ExplorePage extends React.Component {
                 data={targetNode.data}
                 type={targetNode.type}
                 onLinkClick={this.onLinkClick} />
-            ) : null}
+            ) : <ComponentLoader pastDelay /> }
           </div>
           <div className='dn dtc-l w-third-l v-top'>
             {targetNode ? (

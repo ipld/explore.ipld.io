@@ -6,8 +6,8 @@ export default {
   reactToEmptyHash: createSelector(
     'selectHash',
     (hash) => {
-      if (hash === '') {
-        return { actionCreator: 'doUpdateHash', args: ['#/'] }
+      if (hash === '' || hash === '#' || hash === '#/') {
+        return { actionCreator: 'doUpdateHash', args: ['#/explore'] }
       }
     }
   )

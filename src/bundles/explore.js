@@ -7,10 +7,11 @@ const bundle = createAsyncResourceBundle({
   actionBaseType: 'EXPLORE',
   getPromise: async (args) => {
     const {store, getIpfs} = args
-    const hash = store.selectHash()
-    let path = decodeURIComponent(hash.replace('/explore', ''))
+    let path = store.selectExplorePathFromHash()
     if (!path) return null
-    const {cidOrFqdn, rest} = quickSplitPath(path)
+    const pathParts = quickSplitPath(path)
+    if (!pathParts) return null
+    const {cidOrFqdn, rest} = pathParts
     const {targetNode, canonicalPath, localPath, nodes, pathBoundaries} = await resolveIpldPath(getIpfs, cidOrFqdn, rest)
     return {
       path,
@@ -25,19 +26,31 @@ const bundle = createAsyncResourceBundle({
   checkIfOnline: false
 })
 
+bundle.selectExplorePathFromHash = createSelector(
+  'selectRouteInfo',
+  (routeInfo) => {
+    if (!routeInfo.url.startsWith('/explore')) return
+    if (!routeInfo.params.path) return
+    return decodeURIComponent(routeInfo.params.path)
+  }
+)
+
 // Fetch the explore data when the address in the url hash changes.
 bundle.reactExploreFetch = createSelector(
+  'selectIpfsReady',
   'selectExploreIsLoading',
   'selectExploreIsWaitingToRetry',
-  'selectIpfsReady',
-  'selectRouteInfo',
+  'selectExplorePathFromHash',
   'selectExplore',
-  (isLoading, isWaitingToRetry, ipfsReady, {url, params}, obj) => {
-    if (!isLoading && !isWaitingToRetry && ipfsReady && url.startsWith('/explore')) {
-      if (!obj || obj.path !== params.path) {
-        return { actionCreator: 'doFetchExplore' }
-      }
-    }
+  (ipfsReady, isLoading, isWaitingToRetry, explorePathFromHash, obj) => {
+    // Wait for ipfs or the pending request to complete
+    if (!ipfsReady || isLoading || isWaitingToRetry) return false
+    // Theres no url path and no data so nothing to do.
+    if (!explorePathFromHash && !obj) return false
+    // We already have the data for the path.
+    if (obj && explorePathFromHash === obj.path) return false
+
+    return { actionCreator: 'doFetchExplore' }
   }
 )
 
