@@ -5,7 +5,7 @@ import StartExploringPage from './StartExploringPage'
 import ErrorBoundary from '../components/error/ErrorBoundary'
 import CidInfo from './cid-info/CidInfo'
 import ObjectInfo from './object-info/ObjectInfo'
-import IpldGraph from './graph/IpldGraphCytoscape'
+import IpldGraph from './graph/LoadableIpldGraph'
 import GraphCrumb from './graph-crumb/GraphCrumb'
 import ComponentLoader from '../loader/ComponentLoader'
 

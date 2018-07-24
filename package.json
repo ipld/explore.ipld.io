@@ -43,6 +43,7 @@
     "multihashes": "^0.4.13",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
+    "react-debounce-render": "^4.0.3",
     "react-dom": "^16.4.1",
     "react-faux-dom": "^4.2.0",
     "react-helmet": "^5.2.0",
