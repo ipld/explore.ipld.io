@@ -1,10 +1,10 @@
 # IPLD Explorer
 
-![Screenshot of IPLD explorer page](https://user-images.githubusercontent.com/58871/41230416-a4c93376-6d77-11e8-9cab-0d4a1c103d27.png)
-
 > Explore the Merkle Forest from the comfort of your browser.
 
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg)](https://protocol.ai/) [![](https://img.shields.io/badge/project-IPFS-blue.svg)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg)](http://webchat.freenode.net/?channels=%23ipfs) [![Build Status](https://travis-ci.org/ipfs-shipyard/ipfs-webui.svg?branch=revamp)](https://travis-ci.org/ipfs-shipyard/ipfs-webui) [![dependencies Status](https://david-dm.org/ipfs-shipyard/ipfs-webui/revamp/status.svg)](https://david-dm.org/ipfs-shipyard/ipfs-webui/revamp)
+![Screenshot of the IPLD explorer](https://user-images.githubusercontent.com/58871/43152632-f310763c-8f66-11e8-9449-2e362a9f3047.png)
+
+[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg)](https://protocol.ai/) [![](https://img.shields.io/badge/project-IPFS-blue.svg)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg)](http://webchat.freenode.net/?channels=%23ipfs) [![Build Status](https://travis-ci.org/ipfs-shipyard/ipld-explorer.svg)](https://travis-ci.org/ipfs-shipyard/ipld-explorer) [![dependencies Status](https://david-dm.org/ipfs-shipyard/ipld-explorer/master/status.svg)](https://david-dm.org/ipfs-shipyard/ipld-explorer/master)
 
 ## Background
 
