@@ -1,14 +1,14 @@
-sudo: false
 language: node_js
 node_js:
-  - "6"
-  - stable
-
+  - 8.11
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-
+  - npm i -g npm@6.0.0
+env:
+  - NO_SANDBOX=true
+install: npm ci
 script:
   - npm run lint
-  - npm test
+  - npm run test
   - npm run build
+  - npm run test:e2e:ci
+  - npm run bundlesize

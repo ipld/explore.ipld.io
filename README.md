@@ -1,87 +1,100 @@
-# IPFS WebUI
+# IPLD Explorer
 
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
-[![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
-[![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
-[![](https://david-dm.org/ipfs-shipyard/ipfs-webui.svg?style=flat-square)](https://david-dm.org/ipfs-shipyard/ipfs-webui)
-[![](https://img.shields.io/circleci/project/ipfs-shipyard/ipfs-webui/master.svg?style=flat-square)](https://circleci.com/gh/ipfs-shipyard/ipfs-webui)
-[![](https://img.shields.io/travis/ipfs-shipyard/ipfs-webui/master.svg?style=flat-square)](https://travis-ci.org/ipfs-shipyard/ipfs-webui)
-[![](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fwebui.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fwebui?ref=badge_shield)
+![Screenshot of IPLD explorer page](https://user-images.githubusercontent.com/58871/41230416-a4c93376-6d77-11e8-9cab-0d4a1c103d27.png)
 
-> IPFS WebUI is a web interface for [IPFS](https://ipfs.io), the Interplanetary File System. With the interface, you can check on your node info, network addresses, see connections on a globe visually, see your files, look at your config and logs without needing to touch the CLI, and more. This interface uses the [js-ipfs-api](//github.com/ipfs/js-ipfs-api) for all of its heavy lifting.
+> Explore the Merkle Forest from the comfort of your browser.
 
-The WebUI is a **work-in-progress**. Follow the [development](#development) processes below to check it out.
+[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg)](https://protocol.ai/) [![](https://img.shields.io/badge/project-IPFS-blue.svg)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg)](http://webchat.freenode.net/?channels=%23ipfs) [![Build Status](https://travis-ci.org/ipfs-shipyard/ipfs-webui.svg?branch=revamp)](https://travis-ci.org/ipfs-shipyard/ipfs-webui) [![dependencies Status](https://david-dm.org/ipfs-shipyard/ipfs-webui/revamp/status.svg)](https://david-dm.org/ipfs-shipyard/ipfs-webui/revamp)
 
-# Usage
+## Background
 
-## Config your IPFS Daemon
+The app accesses a local IPFS daemon via [`window.ipfs-fallback`](https://github.com/tableflip/window.ipfs-fallback). It will use the `window.ipfs` api provided by the [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) web-extension where available, and fallback to using [js-ipfs-api](https://github.com/ipfs/js-ipfs-api)
 
-When developing the WebUI you will need an ipfs daemon running with API access on port `5001`, as well as the following configuration set, otherwise you will not be able to communicate with the ipfs node.
+The app is built with [`create-react-app`](https://github.com/facebook/create-react-app). Please read the [docs](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents).
 
-```bash
-> ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["http://localhost:3000"]'
-> ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "GET", "POST"]'
-> ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials '["true"]'
+## Install
+
+With `node` > 8.9 and `npm` @ 6+ installed, run
+
+```js
+npm install
 ```
 
-Alternatively, just run the quick config script with: 
+## Usage
 
-```bash
-> ./quick-config.sh
+When developing you can run the [dev server](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start), the [unit tests](https://facebook.github.io/jest/), and the [storybook](https://storybook.js.org/) component viewer and see the results of your changes as you save files.
+
+In separate shells run the following:
+
+```sh
+# Run the unit tests
+npm test
 ```
 
-## Reset your IPFS Daemon config
-
-To reset your config back to the default configuration, run the following command.
-
-```bash
-> ipfs config --json API.HTTPHeaders {}
+```sh
+# Run the dev server @ http://localhost:3000
+npm start
 ```
 
-It might be a good idea to copy the `.ipfs/config` file somewhere with a useful name so you can use `ipfs config replace <file>` to switch between dev mode easily.
-
-## Installation and running
-
-```bash
-> git clone https://github.com/ipfs-shipyard/ipfs-webui
-> cd ipfs-webui
-> npm install
-# Runs server on port 3000.
-> npm start
+```sh
+# Run the UI component viewer @ http://localhost:9009
+npm run storybook
 ```
 
-## Building
+## Build
 
-```bash
-> npm run build
-# The result will be in /dist
+To create an optimized static build of the app, output to the `build` directory:
+
+```sh
+# Build out the html, css & jss to ./build
+npm run build
 ```
 
-# Release a new version of the WebUI.
+### Analyze
 
-When a new version is ready, make sure to:
+To inspect the built bundle for bundled modules and their size, first `build` the app then:
 
-1. bundle
-1. add to IPFS
-1. pin to the gateways
-1. add the new version to https://github.com/ipfs-shipyard/ipfs-webui/tree/master/versions
-1. update the hash at:
-   - js-ipfs https://github.com/ipfs/js-ipfs/blob/master/src/http/api/routes/webui.js#L23
-   - go-ipfs https://github.com/ipfs/go-ipfs/blob/master/core/corehttp/webui.go#L4
+```sh
+# Run bundle
+npm run analyze
+```
 
-# Development
+## Test
 
-Make sure [node.js](https://nodejs.org/) version 6 and [npm](https://docs.npmjs.com/) version 3+ are installed and in your path.
-# Contribute
+The following command will run the app tests, watch source files and re-run the tests when changes are made:
+
+```sh
+npm test
+```
+
+The uses Jest to run the isolated unit tests. Unit test files are located next to the component they test and have the same file name, but with the extension `.test.js`
+
+### Linting
+
+The following command will perform [`standard`](https://standardjs.com/) linting on the code:
+
+```sh
+npm run lint
+```
+
+### Coverage
+
+To do a single run of the tests and generate a coverage report, run the following:
+
+```sh
+npm run test:coverage
+```
+
+
+## Contribute
+
+Feel free to dive in! [Open an issue](https://github.com/ipfs-shipyard/ipld-explorer/issues/new) or submit PRs.
+
+To contribute to IPFS in general, see the [contributing guide](https://github.com/ipfs/community/blob/master/contributing.md).
 
 [![](https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif)](https://github.com/ipfs/community/blob/master/contributing.md)
 
-Please contribute! The more people who work on this, the faster we'll be able to ship it. Dive in by testing it and [looking at the issues](https://github.com/ipfs/webui/issues).
 
-The [CONTRIBUTING](CONTRIBUTING.md) file has more information relevant to this repo. To contribute to IPFS in general, just click on the image above to go to our [global contributing guide](https://github.com/ipfs/community/blob/master/contributing.md).
+## License
 
-# License
-
-[MIT License](LICENSE)
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fwebui.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fipfs%2Fwebui?ref=badge_large)
+[MIT](LICENSE) © Protocol Labs
