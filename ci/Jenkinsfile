@@ -1,7 +1,7 @@
 website([
-  website: 'ipld.io',
+  website: 'explorer.ipld.io',
   build_directory: 'build/',
   record: [
-    'master': '_dnslink.explore',
+    'master': '_dnslink',
   ]
 ])
