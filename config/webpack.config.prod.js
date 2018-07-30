@@ -299,6 +299,8 @@ module.exports = {
       sourceMap: shouldUseSourceMap,
       uglifyOptions: {
         compress: {
+          // Needed to minify js-ipfs, see: https://github.com/ipfs/aegir/pull/214
+          unused: false,
           warnings: false,
           // Disabled because of an issue with Uglify breaking seemingly valid code:
           // https://github.com/facebookincubator/create-react-app/issues/2376

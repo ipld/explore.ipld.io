@@ -7,5 +7,5 @@ build:
 	npm --version
 	npm ci
 	npm run lint
-	npm run test
+	CI=true npm run test
 	npm run build
