@@ -27,17 +27,17 @@ class ExplorePage extends React.Component {
   }
 
   render () {
-    let {explore, exploreIsLoading, explorePathFromHash} = this.props
+    let {embed, explore, exploreIsLoading, explorePathFromHash} = this.props
     if (!explorePathFromHash) {
       // No IPLD path to explore so show the intro page
-      return <StartExploringPage />
+      return <StartExploringPage embed={embed} />
     }
     // Hide the old data while we navigate to the new. We can get much fancier
     // with showing that the request is loading, but for now, this'l hide the
     // now stale info and show a loading spinner.
     explore = explore || {}
     explore = exploreIsLoading ? {} : explore
-    const {targetNode, localPath, nodes, pathBoundaries} = explore
+    const {error, targetNode, localPath, nodes, pathBoundaries} = explore
     const sourceNode = (nodes && nodes[0]) || null
     return (
       <div className='nl3 nt4'>
@@ -54,6 +54,11 @@ class ExplorePage extends React.Component {
         ) : <div style={{height: 54}} /> }
         <div className='dt-l dt--fixed'>
           <div className='dtc-l w-100 w-two-thirds-l pr3-l v-top'>
+            {error ? (
+              <div className='bg-red white pa3 lh-copy'>
+                <span className='mr2'>Path error:</span>{error.message || error}
+              </div>
+            ) : null}
             {targetNode ? (
               <ObjectInfo
                 style={{background: '#FBFBFB'}}
@@ -64,7 +69,10 @@ class ExplorePage extends React.Component {
                 data={targetNode.data}
                 type={targetNode.type}
                 onLinkClick={this.onLinkClick} />
-            ) : <ComponentLoader pastDelay /> }
+            ) : null }
+            {!error && !targetNode ? (
+              <ComponentLoader pastDelay />
+            ) : null}
           </div>
           <div className='dn dtc-l w-third-l v-top'>
             {targetNode ? (

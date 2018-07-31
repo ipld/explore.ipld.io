@@ -33,7 +33,7 @@ class IpldExploreForm extends React.Component {
 
   render () {
     return (
-      <form className='black-80 dt dt--fixed' style={{padding: '20px 40px', maxWidth: 560}} onSubmit={this.onSubmit}>
+      <form className='black-80 dt dt--fixed' style={{maxWidth: 560}} onSubmit={this.onSubmit}>
         <div className='dtc v-top'>
           <div className='relative'>
             <input id='ipfs-path' className='input-reset ba pa2 mb2 db w-100 f6 br-0 placeholder-light focus-outline' style={{borderColor: '#C6D3DA', borderRadius: '3px 0 0 3px'}} type='text' placeholder='QmHash' aria-describedby='name-desc' onChange={this.onChange} value={this.state.path} />
