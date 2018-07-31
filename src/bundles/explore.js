@@ -1,3 +1,4 @@
+import Cid from 'cids'
 import { createAsyncResourceBundle, createSelector } from 'redux-bundler'
 import { resolveIpldPath, quickSplitPath } from '../lib/path'
 
@@ -12,14 +13,27 @@ const bundle = createAsyncResourceBundle({
     const pathParts = quickSplitPath(path)
     if (!pathParts) return null
     const {cidOrFqdn, rest} = pathParts
-    const {targetNode, canonicalPath, localPath, nodes, pathBoundaries} = await resolveIpldPath(getIpfs, cidOrFqdn, rest)
-    return {
-      path,
-      targetNode,
-      canonicalPath,
-      localPath,
-      nodes,
-      pathBoundaries
+    try {
+      // TODO: handle ipns, which would give us a fqdn in the cid position.
+      const cid = new Cid(cidOrFqdn)
+      const {
+        targetNode,
+        canonicalPath,
+        localPath,
+        nodes,
+        pathBoundaries
+      } = await resolveIpldPath(getIpfs, cid.toBaseEncodedString(), rest)
+
+      return {
+        path,
+        targetNode,
+        canonicalPath,
+        localPath,
+        nodes,
+        pathBoundaries
+      }
+    } catch (error) {
+      return { path, error }
     }
   },
   staleAfter: Infinity,

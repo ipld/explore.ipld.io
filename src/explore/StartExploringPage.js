@@ -4,6 +4,7 @@ import Box from '../components/box/Box'
 import Tooltip from '../components/tooltip/Tooltip'
 import { colorForNode, nameForNode, shortNameForNode } from './object-info/ObjectInfo'
 import ipldLogoSrc from './ipld.svg'
+import IpldExploreForm from './IpldExploreForm'
 
 const ExploreSuggestion = ({cid, name, type}) => {
   return (
@@ -21,7 +22,7 @@ const ExploreSuggestion = ({cid, name, type}) => {
   )
 }
 
-const StartExploringPage = () => {
+const StartExploringPage = ({embed}) => {
   return (
     <div>
       <Helmet>
@@ -31,7 +32,8 @@ const StartExploringPage = () => {
         <div className='db dib-l w-50-l v-top'>
           <div className='pr5-l'>
             <h1 className='fw2 montserrat'>Explore the Merkle Forest</h1>
-            <p className='lh-copy f6 charcoal-muted'>Paste a CID into the explore box above to browse the IPLD node it addresses, or click on an option below.</p>
+            <p className='lh-copy f5 charcoal-muted'>Paste a CID into box to fetch the IPLD node it addresses, or choose a featured dataset.</p>
+            {embed ? <IpldExploreForm /> : null}
             <ul className='list pl0 ma0'>
               <li>
                 <ExploreSuggestion name='The IPLD Website' cid='QmTxRvftPnKeR7iJfeVpfsGCYEwZ92ot9zrTksAWUACTs7' type='dag-pb' />
