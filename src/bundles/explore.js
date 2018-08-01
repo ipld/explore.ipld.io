@@ -33,6 +33,7 @@ const bundle = createAsyncResourceBundle({
         pathBoundaries
       }
     } catch (error) {
+      console.log('Failed to resolve path', path, error)
       return { path, error }
     }
   },
