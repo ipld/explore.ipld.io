@@ -36,7 +36,7 @@
     "ipfs-redux-bundle": "^1.0.0",
     "ipfs-unixfs": "^0.1.15",
     "ipld": "^0.17.3",
-    "ipld-dag-pb": "^0.14.5",
+    "ipld-dag-pb": "github:ipld/js-ipld-dag-pb#4c701aa334307f514d4253763b0e2a990adae40f",
     "is-ipfs": "^0.3.2",
     "milliseconds": "^1.0.3",
     "multiaddr": "^5.0.0",
