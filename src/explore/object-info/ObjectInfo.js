@@ -61,7 +61,7 @@ const DagNodeIcon = ({type, ...props}) => (
 const ObjectInfo = ({className, type, cid, localPath, size, data, links, onLinkClick, ...props}) => {
   return (
     <section className={`pa4 sans-serif ${className}`} {...props}>
-      <h2 className='ma0 lh-title f4 fw4 pb2' title={type}>
+      <h2 className='ma0 lh-title f4 fw4 montserrat pb2' title={type}>
         <DagNodeIcon type={type} className='mr3' style={{verticalAlign: -8}} />
         <span className='v-mid'>
           {nameForNode(type)}
@@ -71,7 +71,7 @@ const ObjectInfo = ({className, type, cid, localPath, size, data, links, onLinkC
         {!cid ? null : (
           <div className='dt dt--fixed pt2'>
             <label className='dtc silver tracked ttu f7' style={{width: 48}}>CID</label>
-            <div className='dtc truncate navy monospace'>{cid}</div>
+            <div className='dtc truncate charcoal monospace'>{cid}</div>
           </div>
         )}
         {!size ? null : (
@@ -93,13 +93,13 @@ const ObjectInfo = ({className, type, cid, localPath, size, data, links, onLinkC
           </div>
         </div>
         { !data ? null : (
-          <div className='pa3 mt2 bg-white f5'>
+          <div className='pa3 mt2 bg-white f5 nl3 nr3 mh0-l'>
             <ObjectInspector showMaxKeys={100} data={data} theme={objectInspectorTheme} expandPaths={toExpandPathsNotation(localPath)} />
           </div>
         )}
       </div>
       { !links || !links.length ? null : (
-        <div className='mt2' style={{height: 370}}>
+        <div className='mt2 nl3 nr3 mh0-l' style={{height: 360}}>
           <LinksTable links={links} onLinkClick={onLinkClick} />
         </div>
       )}
