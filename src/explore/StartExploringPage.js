@@ -49,7 +49,7 @@ const StartExploringPage = ({embed}) => {
             </ul>
           </div>
         </div>
-        <div className='flex-auto tc pt2'>
+        <div className='flex-auto tc pt2-l'>
           <Box className='tl dib pa4 avenir measure-wide-l lh-copy dark-gray ba-l b--black-10'>
             <div className='tc'>
               <a className='link' href='https://ipfs.io/ipns/ipld.io'>
