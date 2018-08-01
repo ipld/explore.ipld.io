@@ -53,6 +53,7 @@ export default class IpldGraphCytoscape extends React.Component {
     this.renderTree = this.renderTree.bind(this)
     this.ipfsLinksToCy = this.ipfsLinksToCy.bind(this)
     this.cy = null
+    this.state = {}
   }
 
   static getDerivedStateFromProps (props, state) {

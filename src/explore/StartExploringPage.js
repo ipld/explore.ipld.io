@@ -25,7 +25,7 @@ const StartExploringPage = ({embed}) => {
       <Helmet>
         <title>Explore - IPFS</title>
       </Helmet>
-      <div class='flex-l pl4-l'>
+      <div className='flex-l pl4-l'>
         <div className='flex-none mr3-l'>
           <div className='measure-l'>
             <div className='pl3 pl0-l pt4 pt2-l'>
@@ -49,7 +49,7 @@ const StartExploringPage = ({embed}) => {
             </ul>
           </div>
         </div>
-        <div class='flex-auto tc pt2'>
+        <div className='flex-auto tc pt2'>
           <Box className='tl dib pa4 avenir measure-wide-l lh-copy dark-gray ba-l b--black-10'>
             <div className='tc'>
               <a className='link' href='https://ipfs.io/ipns/ipld.io'>
