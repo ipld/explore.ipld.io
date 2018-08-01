@@ -19,10 +19,15 @@ class ExplorePage extends React.Component {
     const {doUpdateHash, explore} = this.props
     const {nodes, pathBoundaries} = explore
     const cid = nodes[0].cid
-    const basePath = pathBoundaries.map(p => p.path).join('/')
-    const path = basePath ? `${basePath}/${link.path}` : link.path
-    // Reliably derive the url from the data, rather than the current hash
-    const hash = `#/explore/${cid}/${path}`
+    const pathParts = pathBoundaries.map(p => p.path)
+    // add the extra path step from the link to the end
+    if (link && link.path) {
+      pathParts.push(link.path)
+    }
+    // add the root cid to the start
+    pathParts.unshift(cid)
+    const path = pathParts.join('/')
+    const hash = `#/explore/${path}`
     doUpdateHash(hash)
   }
 
