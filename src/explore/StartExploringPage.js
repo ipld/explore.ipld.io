@@ -36,13 +36,13 @@ const StartExploringPage = ({embed}) => {
             {embed ? <IpldExploreForm /> : null}
             <ul className='list pl0 ma0'>
               <li>
-                <ExploreSuggestion name='The IPLD Website' cid='QmTxRvftPnKeR7iJfeVpfsGCYEwZ92ot9zrTksAWUACTs7' type='dag-pb' />
+                <ExploreSuggestion name='Project Apollo Archives' cid='QmSnuWmxptJZdLJpKRarxBMS2Ju2oANVrgbr2xWbie9b2D' type='dag-pb' />
+              </li>
+              <li>
+                <ExploreSuggestion name='IGIS git repo' cid='QmaAT6psXz1JguewRcr5vpckd2FCLZQ6bBJuMqf3YiU12r' type='git-raw' />
               </li>
               <li>
                 <ExploreSuggestion name='An Ethereum Block' cid='z43AaGEvwdfzjrCZ3Sq7DKxdDHrwoaPQDtqF4jfdkNEVTiqGVFW' type='eth-block' />
-              </li>
-              <li>
-                <ExploreSuggestion name='Project Apollo Archives' cid='QmSnuWmxptJZdLJpKRarxBMS2Ju2oANVrgbr2xWbie9b2D' type='dag-pb' />
               </li>
               <li>
                 <ExploreSuggestion name='XKCD' cid='QmdmQXB2mzChmMeKY47C43LxUdg1NDJ5MWcKMKxDu7RgQm' type='dag-pb' />
