@@ -45,7 +45,7 @@ class ExplorePage extends React.Component {
     const {error, targetNode, localPath, nodes, pathBoundaries} = explore
     const sourceNode = (nodes && nodes[0]) || null
     return (
-      <div className='nl3 nt4'>
+      <div className='nt4-l'>
         <Helmet>
           <title>Explore - IPFS</title>
         </Helmet>
@@ -79,7 +79,7 @@ class ExplorePage extends React.Component {
               <ComponentLoader pastDelay />
             ) : null}
           </div>
-          <div className='dn dtc-l w-third-l v-top'>
+          <div className='dtc-l w-third-l v-top pt3 pt0-l'>
             {targetNode ? (
               <CidInfo
                 style={{background: '#FBFBFB', overflow: 'hidden'}}

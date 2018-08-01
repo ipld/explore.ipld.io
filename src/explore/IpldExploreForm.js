@@ -36,14 +36,14 @@ class IpldExploreForm extends React.Component {
       <form className='black-80 dt dt--fixed' style={{maxWidth: 560}} onSubmit={this.onSubmit}>
         <div className='dtc v-top'>
           <div className='relative'>
-            <input id='ipfs-path' className='input-reset ba pa2 mb2 db w-100 f6 br-0 placeholder-light focus-outline' style={{borderColor: '#C6D3DA', borderRadius: '3px 0 0 3px'}} type='text' placeholder='QmHash' aria-describedby='name-desc' onChange={this.onChange} value={this.state.path} />
+            <input id='ipfs-path' className='input-reset bn pa2 mb2 db w-100 f6 br-0 placeholder-light focus-outline' style={{borderRadius: '3px 0 0 3px'}} type='text' placeholder='QmHash' aria-describedby='name-desc' onChange={this.onChange} value={this.state.path} />
             <small id='ipfs-path-desc' className='o-0 absolute f6 black-60 db mb2'>Paste in a CID or IPFS path</small>
           </div>
         </div>
-        <div className='dtc v-top' style={{width: 120}}>
+        <div className='dtc v-top' style={{width: 100}}>
           <button
             type='submit'
-            className='button-reset dib lh-copy pv1 pl2 pr3 ba f7 fw4 focus-outline white bg-aqua border-aqua-muted'
+            className='button-reset dib lh-copy pv1 pl2 pr3 ba f7 fw4 focus-outline white bg-aqua bn'
             style={{borderRadius: '0 3px 3px 0'}}>
             <StrokeIpld style={{height: 24}} className='dib fill-current-color v-mid' />
             <span className='ml2'>Explore</span>
