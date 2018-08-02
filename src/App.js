@@ -20,7 +20,7 @@ export class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      showUpdateAvailable: true
+      showUpdateAvailable: false
     }
     registerServiceWorker({
       onUpdate: () => this.setState({showUpdateAvailable: true})
