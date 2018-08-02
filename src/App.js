@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'redux-bundler-react'
 import navHelper from 'internal-nav-helper'
 import IpldExploreForm from './explore/IpldExploreForm'
-import registerServiceWorker from './registerServiceWorker'
 import ipfsLogo from './navigation/ipfs-logo.svg'
 
 export class App extends Component {
@@ -11,6 +10,7 @@ export class App extends Component {
     doInitIpfs: PropTypes.func.isRequired,
     doUpdateUrl: PropTypes.func.isRequired,
     queryObject: PropTypes.object.isRequired,
+    registerServiceWorker: PropTypes.func,
     route: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.element
@@ -22,9 +22,11 @@ export class App extends Component {
     this.state = {
       showUpdateAvailable: false
     }
-    registerServiceWorker({
-      onUpdate: () => this.setState({showUpdateAvailable: true})
-    })
+    if (props.registerServiceWorker) {
+      props.registerServiceWorker({
+        onUpdate: () => this.setState({showUpdateAvailable: true})
+      })
+    }
   }
 
   componentDidMount () {
