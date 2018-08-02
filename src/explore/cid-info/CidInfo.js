@@ -39,7 +39,7 @@ const CidInfo = ({cid, className, ...props}) => {
   return !cid ? null : (
     <section className={`ph3 pv4 sans-serif ${className}`} {...props}>
       <label className='db pb2'>
-        <a className='tracked ttu f5 fw2 teal-muted hover-aqua link' href='https://github.com/ipld/cid#human-readable-cids'>
+        <a className='tracked ttu f5 fw2 teal-muted hover-aqua link' href='https://docs.ipfs.io/guides/concepts/cid/'>
           CID info
         </a>
       </label>

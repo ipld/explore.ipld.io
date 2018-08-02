@@ -38,7 +38,7 @@ const StartExploringPage = ({embed}) => {
                 <ExploreSuggestion name='Project Apollo Archives' cid='QmSnuWmxptJZdLJpKRarxBMS2Ju2oANVrgbr2xWbie9b2D' type='dag-pb' />
               </li>
               <li>
-                <ExploreSuggestion name='IGIS git repo' cid='QmaAT6psXz1JguewRcr5vpckd2FCLZQ6bBJuMqf3YiU12r' type='git-raw' />
+                <ExploreSuggestion name='IGIS git repo' cid='z8mWaJHXieAVxxLagBpdaNWFEBKVWmMiE' type='git-raw' />
               </li>
               <li>
                 <ExploreSuggestion name='An Ethereum Block' cid='z43AaGEvwdfzjrCZ3Sq7DKxdDHrwoaPQDtqF4jfdkNEVTiqGVFW' type='eth-block' />
@@ -52,7 +52,7 @@ const StartExploringPage = ({embed}) => {
         <div className='flex-auto tc pt2-l'>
           <Box className='tl dib pa4 avenir measure-wide-l lh-copy dark-gray ba-l b--black-10'>
             <div className='tc'>
-              <a className='link' href='https://ipfs.io/ipns/ipld.io'>
+              <a className='link' href='https://ipld.io'>
                 <img src={ipldLogoSrc} alt='IPLD' style={{height: 60}} />
               </a>
             </div>

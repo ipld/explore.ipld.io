@@ -14,8 +14,8 @@ const objectInspectorTheme = {
 
 // TODO: Use https://github.com/multiformats/multicodec/blob/master/table.csv to get full name.
 const nodeStyles = {
-  'dag-cbor': {shortName: 'CBOR', name: 'CBOR DAG Node', color: '#28CA9F'},
-  'dag-pb': {shortName: 'PB', name: 'Protobuf DAG Node', color: '#244e66'},
+  'dag-cbor': {shortName: 'CBOR', name: 'CBOR', color: '#28CA9F'},
+  'dag-pb': {shortName: 'PB', name: 'Protobuf', color: '#244e66'},
   'git-raw': {shortName: 'GIT', name: 'Git', color: '#f14e32'},
   'eth-block': {shortName: 'ETH', name: 'Ethereum Block', color: '#383838'},
   'eth-block-list': {shortName: 'ETH', name: 'Ethereum Block List', color: '#383838'},
@@ -58,7 +58,7 @@ const DagNodeIcon = ({type, ...props}) => (
   </svg>
 )
 
-const ObjectInfo = ({className, type, cid, localPath, size, data, links, onLinkClick, ...props}) => {
+const ObjectInfo = ({className, type, cid, localPath, size, data, links, format, onLinkClick, ...props}) => {
   return (
     <section className={`pa4 sans-serif ${className}`} {...props}>
       <h2 className='ma0 lh-title f4 fw4 montserrat pb2' title={type}>
@@ -66,6 +66,14 @@ const ObjectInfo = ({className, type, cid, localPath, size, data, links, onLinkC
         <span className='v-mid'>
           {nameForNode(type)}
         </span>
+        {format === 'unixfs' ? (
+          <a className='dn di-ns link charcoal ml2' href='https://docs.ipfs.io/guides/concepts/unixfs/'>UnixFS</a>
+        ) : null}
+        {format === 'unixfs' && data.type && ['directory', 'file'].some(x => x === data.type) ? (
+          <a className='link avenir ml2 pa2 fw5 f6 blue' href={`https://ipfs.io/ipfs/${cid}`} target='_external'>
+            View on IPFS Gateway
+          </a>
+        ) : null}
       </h2>
       <div className='f6'>
         {!cid ? null : (
