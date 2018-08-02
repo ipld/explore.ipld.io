@@ -38,7 +38,7 @@ const StartExploringPage = ({embed}) => {
                 <ExploreSuggestion name='Project Apollo Archives' cid='QmSnuWmxptJZdLJpKRarxBMS2Ju2oANVrgbr2xWbie9b2D' type='dag-pb' />
               </li>
               <li>
-                <ExploreSuggestion name='IGIS git repo' cid='QmaAT6psXz1JguewRcr5vpckd2FCLZQ6bBJuMqf3YiU12r' type='git-raw' />
+                <ExploreSuggestion name='IGIS git repo' cid='z8mWaJHXieAVxxLagBpdaNWFEBKVWmMiE' type='git-raw' />
               </li>
               <li>
                 <ExploreSuggestion name='An Ethereum Block' cid='z43AaGEvwdfzjrCZ3Sq7DKxdDHrwoaPQDtqF4jfdkNEVTiqGVFW' type='eth-block' />

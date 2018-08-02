@@ -73,6 +73,7 @@ class ExplorePage extends React.Component {
                 links={targetNode.links}
                 data={targetNode.data}
                 type={targetNode.type}
+                format={targetNode.format}
                 onLinkClick={this.onLinkClick} />
             ) : null }
             {!error && !targetNode ? (
