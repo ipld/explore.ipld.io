@@ -52,7 +52,7 @@ const StartExploringPage = ({embed}) => {
         <div className='flex-auto tc pt2-l'>
           <Box className='tl dib pa4 avenir measure-wide-l lh-copy dark-gray ba-l b--black-10'>
             <div className='tc'>
-              <a className='link' href='https://ipfs.io/ipns/ipld.io'>
+              <a className='link' href='https://ipld.io'>
                 <img src={ipldLogoSrc} alt='IPLD' style={{height: 60}} />
               </a>
             </div>
