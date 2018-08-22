@@ -47,7 +47,7 @@ class ExplorePage extends React.Component {
     return (
       <div className='nt4-l'>
         <Helmet>
-          <title>Explore - IPFS</title>
+          <title>Exploring - IPLD</title>
         </Helmet>
         {pathBoundaries && targetNode ? (
           <GraphCrumb

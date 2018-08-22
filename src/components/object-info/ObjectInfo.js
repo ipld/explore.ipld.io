@@ -79,7 +79,7 @@ const ObjectInfo = ({className, type, cid, localPath, size, data, links, format,
         {!cid ? null : (
           <div className='dt dt--fixed pt2'>
             <label className='dtc silver tracked ttu f7' style={{width: 48}}>CID</label>
-            <div className='dtc truncate charcoal monospace'>{cid}</div>
+            <div className='dtc truncate charcoal monospace' data-id='ObjectInfo-cid'>{cid}</div>
           </div>
         )}
         {!size ? null : (

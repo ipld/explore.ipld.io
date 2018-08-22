@@ -23,7 +23,7 @@ const StartExploringPage = ({embed}) => {
   return (
     <div>
       <Helmet>
-        <title>Explore - IPFS</title>
+        <title>Explore - IPLD</title>
       </Helmet>
       <div className='flex-l pl4-l'>
         <div className='flex-none mr3-l'>
