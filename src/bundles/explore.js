@@ -1,6 +1,7 @@
 import Cid from 'cids'
 import { createAsyncResourceBundle, createSelector } from 'redux-bundler'
-import { resolveIpldPath, quickSplitPath } from '../lib/path'
+import resolveIpldPath from '../lib/resolve-ipld-path'
+import parseIpldPath from '../lib/parse-ipld-path'
 
 // Find all the nodes and path boundaries traversed along a given path
 const bundle = createAsyncResourceBundle({
@@ -10,7 +11,7 @@ const bundle = createAsyncResourceBundle({
     const {store, getIpfs} = args
     let path = store.selectExplorePathFromHash()
     if (!path) return null
-    const pathParts = quickSplitPath(path)
+    const pathParts = parseIpldPath(path)
     if (!pathParts) return null
     const {cidOrFqdn, rest} = pathParts
     try {
