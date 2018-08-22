@@ -3,7 +3,7 @@ import {DAGNode} from 'ipld-dag-pb'
 import {
   resolveIpldPath,
   findPathBoundaryLink
-} from './path.js'
+} from './resolve-ipld-path'
 
 // TODO: Figure out how to mock the block store for IPLD resolver
 it.skip('resolves all nodes traversed along a path', async () => {
