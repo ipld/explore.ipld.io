@@ -1,5 +1,5 @@
 import { createRouteBundle } from 'redux-bundler'
-import ExplorePage from '../explore/ExplorePage'
+import ExplorePage from '../components/ExplorePage'
 
 export default createRouteBundle({
   '/explore*': ExplorePage,
