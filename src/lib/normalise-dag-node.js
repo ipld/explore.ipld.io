@@ -1,5 +1,5 @@
 import unixfs from 'ipfs-unixfs'
-import { toCidOrNull, toCidStrOrNull, getCodecOrNull } from './cid'
+import { toCidOrNull, getCodecOrNull } from './cid'
 
 /**
  * Provide a uniform shape for all^ node types.
@@ -25,9 +25,13 @@ export default function normaliseDagNode (node, cidStr) {
  * Normalize links and add type info. Add unixfs info where available
  */
 export function normaliseDagPb (node, cid, type) {
-  if (toCidStrOrNull(node.multihash) !== cid) {
-    throw new Error('dag-pb multihash should match provided cid')
-  }
+  // NOTE: Use the requested cid rather than the internal one.
+  // The multihash property on a DAGNode is always cidv0, regardless of request cid.
+  // SEE: https://github.com/ipld/js-ipld-dag-pb/issues/84
+
+  // if (toCidStrOrNull(node.multihash) !== cid) {
+  //   throw new Error('dag-pb multihash should match provided cid')
+  // }
   node = node.toJSON()
   let format
   try {
@@ -44,7 +48,7 @@ export function normaliseDagPb (node, cid, type) {
     cid,
     type,
     data: node.data,
-    links: normaliseDagPbLinks(node),
+    links: normaliseDagPbLinks(node, cid),
     size: node.size,
     format
   }
@@ -54,10 +58,10 @@ export function normaliseDagPb (node, cid, type) {
  * Convert DagLink shape into normalized form that can be used interchangeably
  * with links found in dag-cbor
  */
-export function normaliseDagPbLinks (node) {
+export function normaliseDagPbLinks (node, sourceCid) {
   return node.links.map(({name, size, multihash}) => ({
     path: name,
-    source: node.multihash,
+    source: sourceCid,
     target: multihash,
     size
   }))
