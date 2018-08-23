@@ -2,7 +2,7 @@
 import {DAGNode} from 'ipld-dag-pb'
 import {
   resolveIpldPath,
-  findPathBoundaryLink
+  findLinkPath
 } from './resolve-ipld-path'
 
 // TODO: Figure out how to mock the block store for IPLD resolver
@@ -128,30 +128,12 @@ function createDagPbNode (data, links) {
   })
 }
 
-it('finds the path boundary link in a dag-cbor ipld path', () => {
-  const normalisedCborNode = {
-    cid: 'zdpuAs8sJjcmsPUfB1bUViftCZ8usnvs2cXrPH6MDyT4zrvSs',
-    type: 'dag-cbor',
-    data: {
-      a: {
-        b: {
-          a: {
-            '/': 'QmYPNmahJAvkMTU6tDx5zvhEkoLzEFeTDz6azDCSNqzKkW'
-          }
-        }
-      }
-    },
-    links: [{
-      path: 'a/b/a',
-      source: 'zdpuAs8sJjcmsPUfB1bUViftCZ8usnvs2cXrPH6MDyT4zrvSs',
-      target: 'QmYPNmahJAvkMTU6tDx5zvhEkoLzEFeTDz6azDCSNqzKkW'
-    }]
-  }
-  expect(findPathBoundaryLink(normalisedCborNode, '')).toBe(null)
-  expect(findPathBoundaryLink(normalisedCborNode, '/')).toBe(null)
-  expect(findPathBoundaryLink(normalisedCborNode, '/a')).toBe(null)
-  expect(findPathBoundaryLink(normalisedCborNode, '/a/b')).toBe(null)
-  // "c" resolves to it's link target QmYPNmahJAvkMTU6tDx5zvhEkoLzEFeTDz6azDCSNqzKkW, not this node.
-  expect(findPathBoundaryLink(normalisedCborNode, '/a/b/a')).toEqual(normalisedCborNode.links[0])
-  expect(findPathBoundaryLink(normalisedCborNode, '/a/b/a/c/d')).toEqual(normalisedCborNode.links[0])
+it('finds the linkPath from a fullPath and a remainderPath', () => {
+  expect(findLinkPath('', '')).toBe(null)
+  expect(findLinkPath('/', '')).toBe(null)
+  expect(findLinkPath('/foo/bar', 'bar')).toBe('foo')
+  expect(findLinkPath('/a/b/c/a', 'b/c/a')).toBe('a')
+  expect(findLinkPath('/a/b/c/a', '/b/c/a')).toBe('a')
+  expect(findLinkPath('a/b/c/a', '/b/c/a')).toBe('a')
+  expect(() => findLinkPath('/foo', 'wat')).toThrow()
 })

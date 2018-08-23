@@ -59,11 +59,12 @@ export function normaliseDagPb (node, cid, type) {
  * with links found in dag-cbor
  */
 export function normaliseDagPbLinks (node, sourceCid) {
-  return node.links.map(({name, size, multihash}) => ({
-    path: name,
+  return node.links.map(({name, size, multihash}, index) => ({
+    path: name || `Links/${index}`,
     source: sourceCid,
     target: multihash,
-    size
+    size,
+    index
   }))
 }
 
