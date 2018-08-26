@@ -30,7 +30,7 @@ const StartExploringPage = ({embed}) => {
           <div className='measure-l'>
             <div className='pl3 pl0-l pt4 pt2-l'>
               <h1 className='f3 f2-l ma0 fw4 montserrat charcoal'>Explore the Merkle Forest</h1>
-              <p className='lh-copy f5 avenir charcoal-muted'>Paste a CID into box to fetch the IPLD node it addresses, or choose a featured dataset.</p>
+              <p className='lh-copy f5 avenir charcoal-muted'>Paste a CID into the box to fetch the IPLD node it addresses, or choose a featured dataset.</p>
             </div>
             {embed ? <IpldExploreForm /> : null}
             <ul className='list pl0 ma0 mt4 mt0-l bt bn-l b--black-10'>
