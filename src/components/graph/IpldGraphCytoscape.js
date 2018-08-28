@@ -103,9 +103,11 @@ export default class IpldGraphCytoscape extends React.Component {
 
     if (this.props.onNodeClick) {
       cy.on('tap', async (e) => {
+        // onNodeClick is triggered when clicking in gaps between nodes which is weird
+        if (!e.target.data) return
         const data = e.target.data()
-        // map back from cyNode to ipfs link
-        this.props.onNodeClick({target: data.target, path: data.path})
+        const link = this.state.truncatedLinks[data.index]
+        this.props.onNodeClick(link)
       })
     }
 

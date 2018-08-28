@@ -37,23 +37,15 @@ import normaliseDagNode from './normalise-dag-node'
  * @returns {{targetNode: Object, canonicalPath: String, localPath: String, nodes: Object[], pathBoundaries: Object[]}} resolved path info
  */
 export default async function resolveIpldPath (getIpfs, sourceCid, path, nodes = [], pathBoundaries = []) {
-  // TODO: find out why ipfs.dag.get with localResolve never resolves.
-  // const {value, remainderPath} = await getIpfs().dag.get(sourceCid, path, {localResolve: true})
-
-  // TODO: use ipfs.dag.get when it gets ipld super powers
-  // SEE: https://github.com/ipfs/js-ipfs-api/pull/755
-  // const {value} = await getIpfs().dag.get(sourceCid)
-
-  const {value} = await ipldGet(getIpfs, sourceCid)
+  const {value, remainderPath} = await ipldGetNodeAndRemainder(getIpfs, sourceCid, path)
 
   const node = normaliseDagNode(value, sourceCid)
   nodes.push(node)
 
-  const link = findPathBoundaryLink(node, path)
+  const linkPath = findLinkPath(path, remainderPath)
+  const link = findLink(node, linkPath)
   if (link) {
     pathBoundaries.push(link)
-    const relPath = path.startsWith('/') ? path.substring(1) : path
-    const remainderPath = relPath.replace(link.path, '')
     // Go again, using the link.target as the sourceCid, and the remainderPath as the path.
     return resolveIpldPath(getIpfs, link.target, remainderPath, nodes, pathBoundaries)
   }
@@ -64,27 +56,19 @@ export default async function resolveIpldPath (getIpfs, sourceCid, path, nodes =
   return {targetNode, canonicalPath, localPath: path, nodes, pathBoundaries}
 }
 
-/**
- * Find the link that must be traversed to resolve the path or null if none.
- *
- * @param {Object} node a `normalisedDagNode`
- * @param {Object} path an IPLD path string
- * @returns {Object} the first link you hit while traversing the path or null
- */
-export function findPathBoundaryLink (node, path) {
-  if (!path) return null
-  if (!node) return null
-  const {links} = node
-  const normalisedPath = path.startsWith('/') ? path.substring(1) : path
-  const link = links.reduce((longest, link) => {
-    if (link && normalisedPath.startsWith(link.path)) {
-      if (!longest || link.path.length > longest.path.length) {
-        return link
-      }
-    }
-    return longest
-  }, null)
-  return link
+export async function ipldGetNodeAndRemainder (getIpfs, sourceCid, path) {
+  // TODO: find out why ipfs.dag.get with localResolve never resolves.
+  // const {value, remainderPath} = await getIpfs().dag.get(sourceCid, path, {localResolve: true})
+
+  // TODO: use ipfs.dag.get when it gets ipld super powers
+  // SEE: https://github.com/ipfs/js-ipfs-api/pull/755
+  // const {value} = await getIpfs().dag.get(sourceCid)
+
+  // TODO: handle indexing into dag-pb links without using Links prefix as per go-ipfs dag.get does.
+  // Current js-ipld-dag-pb resolver will throw with a path not available error if Links prefix is missing.
+  const {value} = await ipldGet(getIpfs, sourceCid)
+  const {remainderPath} = await ipldGet(getIpfs, sourceCid, path, {localResolve: true})
+  return {value, remainderPath}
 }
 
 export function ipldGet (getIpfs, cid, path, options) {
@@ -95,4 +79,41 @@ export function ipldGet (getIpfs, cid, path, options) {
       resolve(res)
     })
   })
+}
+
+/**
+ * Find the link object that matches linkPath
+ *
+ * @param {Object} node a `normalisedDagNode`
+ * @param {Object} linkPath an IPLD path string
+ * @returns {Object} the link object for `linkPath`
+ */
+export function findLink (node, linkPath) {
+  if (!linkPath) return null
+  if (!node) return null
+  const {links} = node
+  const link = links.find(link => link.path === linkPath)
+  return link
+}
+
+export function findLinkPath (fullPath, remainderPath) {
+  console.log('findLinkPath', fullPath, remainderPath)
+  if (!fullPath || fullPath === '/') return null
+  if (!remainderPath) return trimSlashes(fullPath)
+  if (!fullPath.endsWith(remainderPath)) {
+    throw new Error('Requested IPLD path should end with the remainder path', {fullPath, remainderPath})
+  }
+  // Remove remainder path from end of full path to get link path
+  const linkPath = fullPath.substring(0, fullPath.length - remainderPath.length)
+  return trimSlashes(linkPath)
+}
+
+export function trimSlashes (str) {
+  if (str.startsWith('/')) {
+    str = str.substring(1)
+  }
+  if (str.endsWith('/')) {
+    str = str.substring(0, str.length - 1)
+  }
+  return str
 }
