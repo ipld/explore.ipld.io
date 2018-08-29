@@ -1,7 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { connect } from 'redux-bundler-react'
-import StartExploringPage from './StartExploringPage'
 import ErrorBoundary from './error/ErrorBoundary'
 import CidInfo from './cid-info/CidInfo'
 import ObjectInfo from './object-info/ObjectInfo'
@@ -32,10 +31,11 @@ class ExplorePage extends React.Component {
   }
 
   render () {
-    let {embed, explore, exploreIsLoading, explorePathFromHash} = this.props
+    let {explore, exploreIsLoading, explorePathFromHash} = this.props
     if (!explorePathFromHash) {
       // No IPLD path to explore so show the intro page
-      return <StartExploringPage embed={embed} />
+      console.log('[IPLD Explorer] ExplorePage loaded without a path to explore')
+      return null
     }
     // Hide the old data while we navigate to the new. We can get much fancier
     // with showing that the request is loading, but for now, this'l hide the
