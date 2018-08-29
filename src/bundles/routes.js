@@ -1,8 +1,9 @@
 import { createRouteBundle } from 'redux-bundler'
-import ExplorePage from '../components/ExplorePage'
+import ExplorePage from '../components/LoadableExplorePage'
+import StartExploringPage from '../components/StartExploringPage'
 
 export default createRouteBundle({
   '/explore*': ExplorePage,
-  '/': ExplorePage,
-  '': ExplorePage
+  '/': StartExploringPage,
+  '': StartExploringPage
 }, { routeInfoSelector: 'selectHash' })
