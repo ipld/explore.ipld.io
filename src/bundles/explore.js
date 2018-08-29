@@ -46,8 +46,8 @@ bundle.selectExplorePathFromHash = createSelector(
   'selectRouteInfo',
   (routeInfo) => {
     if (!routeInfo.url.startsWith('/explore')) return
-    if (!routeInfo.params.path) return
-    return decodeURIComponent(routeInfo.params.path)
+    const path = routeInfo.url.slice('/explore'.length)
+    return decodeURIComponent(path)
   }
 )
 
