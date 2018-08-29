@@ -25,7 +25,7 @@ const StartExploringPage = ({embed}) => {
       <Helmet>
         <title>Explore - IPLD</title>
       </Helmet>
-      <div className='flex-l pl4-l'>
+      <div className='flex-l'>
         <div className='flex-none mr3-l'>
           <div className='measure-l'>
             <div className='pl3 pl0-l pt4 pt2-l'>

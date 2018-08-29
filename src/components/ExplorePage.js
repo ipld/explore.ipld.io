@@ -52,7 +52,6 @@ class ExplorePage extends React.Component {
         {pathBoundaries && targetNode ? (
           <GraphCrumb
             style={{padding: '15px 0 10px'}}
-            className='ml4'
             cid={sourceNode.cid}
             pathBoundaries={pathBoundaries}
             localPath={localPath} />
