@@ -1,6 +1,5 @@
 import { createRouteBundle } from 'redux-bundler'
-import ExplorePage from '../components/LoadableExplorePage'
-import StartExploringPage from '../components/StartExploringPage'
+import { ExplorePage, StartExploringPage } from 'ipld-explorer-components'
 
 export default createRouteBundle({
   '/explore*': ExplorePage,

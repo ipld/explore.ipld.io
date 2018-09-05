@@ -1,6 +1,6 @@
 import React from 'react'
 import ipfsLogo from './ipfs-logo.svg'
-import IpldExploreForm from '../IpldExploreForm'
+import { IpldExploreForm } from 'ipld-explorer-components'
 
 const Header = () => {
   return (
