@@ -1,22 +1,24 @@
 import React from 'react'
 import ipfsLogo from './ipfs-logo.svg'
 import { IpldExploreForm } from 'ipld-explorer-components'
+import { translate } from 'react-i18next'
 
-const Header = () => {
+const Header = ({ t }) => {
   return (
-    <header className='flex-ns items-center pa3 bg-navy bb bw3 border-aqua'>
-      <div className='flex-auto'>
-        <a href='#/' title='home' className='dib dib-ns'>
-          <img src={ipfsLogo} alt='IPFS' style={{height: 50, width: 117.5}} />
-        </a>
-        <h1 className='dib dn-l ma0 tr f3 fw2 montserrat aqua fr' style={{paddingTop: 14}}>IPLD EXPLORER</h1>
-        <div className='dib ml3-ns pt2 pt0-ns'>
+    <header className='flex-l items-center pa3 bg-navy bb bw3 border-aqua tc tl-l'>
+      <a href='#/' title={t('homeLink')} className='flex-none v-mid'>
+        <img src={ipfsLogo} alt='IPFS' style={{height: 50, width: 117.5}} />
+      </a>
+      <div className='flex-auto ph2 ph3-l pt1'>
+        <div style={{maxWidth: 560}} className='center-m'>
           <IpldExploreForm />
         </div>
       </div>
-      <h1 className='dn db-l ma0 tr f3 fw2 montserrat aqua'>IPLD EXPLORER</h1>
+      <h1 className='pt2 pt0-l ma0 f3 fw2 montserrat aqua ttu flex-none'>
+        { t('appName') }
+      </h1>
     </header>
   )
 }
 
-export default Header
+export default translate('explore')(Header)
