@@ -2,6 +2,7 @@
   "appName": "IPLD Explorer",
   "homeLink": "Home",
   "UpdateAvailable": {
+    "paragraph1": "A new version of IPLD Explorer is available, <1>please reload</1>"
   },
   "StartExploringPage": {
     "title": "Explore - IPLD",
