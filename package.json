@@ -31,7 +31,7 @@
     "ipfs-css": "^0.9.0",
     "ipfs-redux-bundle": "^1.0.0",
     "ipld": "^0.17.3",
-    "ipld-explorer-components": "^0.1.0",
+    "ipld-explorer-components": "0.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
