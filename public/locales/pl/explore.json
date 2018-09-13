@@ -1,12 +1,8 @@
 {
   "appName": "Przeglądarka IPLD",
-  "homeLink": "Home",
-  "UpdateAvailable": {
-    "paragraph1": "A new version of IPLD Explorer is available, <1>please reload</1>"
-  },
   "StartExploringPage": {
     "title": "Przeglądarka - IPLD",
-    "header": "Przeglądaj las haszy",
+    "header": "Przeglądaj Las Merkle’a",
     "leadParagraph": "Wklej CID aby pobrać dowolny węzeł IPLD lub wybierz jeden z polecanych zbiorów."
   },
   "AboutIpld": {

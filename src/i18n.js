@@ -4,20 +4,22 @@ import XHR from 'i18next-xhr-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 import en from 'i18next-icu/locale-data/en'
+import ko from 'i18next-icu/locale-data/ko'
+import no from 'i18next-icu/locale-data/no'
 import pl from 'i18next-icu/locale-data/pl'
 import pt from 'i18next-icu/locale-data/pt'
 import sv from 'i18next-icu/locale-data/sv'
 
 i18n
   .use(new ICU({
-    localeData: [en, pl, pt, sv]
+    localeData: [en, ko, no, pl, pt, sv]
   }))
   .use(XHR)
   .use(LanguageDetector)
   .init({
     ns: ['explore'],
     fallbackLng: 'en',
-    debug: true,
+    debug: process.env.NODE_ENV !== 'production',
     // react i18next special options (optional)
     react: {
       wait: true,
