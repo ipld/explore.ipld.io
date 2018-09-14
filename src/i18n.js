@@ -20,6 +20,10 @@ i18n
     ns: ['explore'],
     fallbackLng: 'en',
     debug: process.env.NODE_ENV !== 'production',
+    backend: {
+      // ensure a realtive path is used to look up the locales, so it works when used from /ipfs/<cid>
+      loadPath: 'locales/{{lng}}/{{ns}}.json'
+    },
     // react i18next special options (optional)
     react: {
       wait: true,
