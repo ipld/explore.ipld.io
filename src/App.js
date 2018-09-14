@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'redux-bundler-react'
 import navHelper from 'internal-nav-helper'
 import Header from './components/header/Header'
+import UpdateAvailable from './components/update/UpdateAvailable'
 
 export class App extends Component {
   static propTypes = {
@@ -45,11 +46,7 @@ export class App extends Component {
           <Page embed={embed} />
         </div>
         {showUpdateAvailable ? (
-          <div className='fixed bottom-0 w-100 tc'>
-            <div className='dib f5 lh-copy avenir ph4 pv3 white bg-green br2 br--top'>
-              A new version of IPLD Explorer is available, <a className='pointer underline link fw5' onClick={() => window.location.reload()}>please reload</a>
-            </div>
-          </div>
+          <UpdateAvailable />
         ) : null }
       </div>
     )
