@@ -13,7 +13,7 @@ const defaultState = {
 export default {
   name: 'ipfs',
 
-  reducer (state, {type, payload, error}) {
+  reducer(state, { type, payload, error }) {
     state = state || defaultState
     if (type === 'IPFS_INIT_FINISHED') {
       return Object.assign({}, state, {
@@ -31,7 +31,7 @@ export default {
     return state
   },
 
-  getExtraArgs () {
+  getExtraArgs() {
     return { getIpfs: () => root._ipfs }
   },
 
@@ -50,9 +50,13 @@ export default {
     // TRY window.ipfs!
     if (root.ipfs) {
       try {
-        identity = await root.ipfs.id()
-        root._ipfs = root.ipfs
-        console.log('Found `window.ipfs`. Nice!')
+        if (root.ipfs.enable) {
+          root._ipfs = await root.ipfs.enable({ commands: ['id', 'block.get'] })
+        } else {
+          root._ipfs = root.ipfs
+        }
+        identity = await root._ipfs.id()
+        console.log('Found `window.ipfs`. Nice!', root._ipfs)
         console.timeEnd('IPFS_INIT')
         return dispatch({
           type: 'IPFS_INIT_FINISHED',
@@ -65,17 +69,25 @@ export default {
         console.log('Failed to get id from window.ipfs', error)
       }
     } else {
-      console.log('No window.ipfs found. Consider Installing the IPFS Companion web extension - https://github.com/ipfs-shipyard/ipfs-companion')
+      console.log(
+        'No window.ipfs found. Consider Installing the IPFS Companion web extension - https://github.com/ipfs-shipyard/ipfs-companion'
+      )
     }
 
     // TRY js-ipfs-api!
-    const apiOpts = Object.assign({}, getState().ipfs.apiOpts, getUserOpts('ipfsApi'))
+    const apiOpts = Object.assign(
+      {},
+      getState().ipfs.apiOpts,
+      getUserOpts('ipfsApi')
+    )
     try {
       console.time('IPFS_INIT_API')
-      const IpfsApi = await import('ipfs-api')
-      console.log('Trying ipfs-api', apiOpts)
-      console.info('🎛️ Customise your js-ipfs-api opts by setting an `ipfsApi` value in localStorage. e.g. localStorage.setItem(\'ipfsApi\', JSON.stringify({port: \'1337\'}))')
-      ipfs = new IpfsApi(apiOpts)
+      const { default: ipfsClient } = await import('ipfs-http-client')
+      console.log('Trying ipfs-http-client', apiOpts)
+      console.info(
+        "🎛️ Customise your js-ipfs-api opts by setting an `ipfsApi` value in localStorage. e.g. localStorage.setItem('ipfsApi', JSON.stringify({port: '1337'}))"
+      )
+      ipfs = ipfsClient(apiOpts)
       identity = await ipfs.id()
       console.log('js-ipfs-api ready!')
       root._ipfs = ipfs
@@ -98,9 +110,13 @@ export default {
     try {
       console.time('IPFS_INIT_JS_IPFS')
       console.log('Trying js-ipfs', ipfsOpts)
-      console.info('🎛️ Customise your js-ipfs opts by setting an `ipfsOpts` value in localStorage. e.g. localStorage.setItem(\'ipfsOpts\', JSON.stringify({relay: {enabled: true}}))')
-      const Ipfs = await import('ipfs')
+      console.info(
+        "🎛️ Customise your js-ipfs opts by setting an `ipfsOpts` value in localStorage. e.g. localStorage.setItem('ipfsOpts', JSON.stringify({relay: {enabled: true}}))"
+      )
+      const { default: Ipfs } = await import('ipfs')
+      console.log('got Ipfs')
       const ipfs = await initJsIpfs(Ipfs, ipfsOpts)
+      console.log('got ipfs')
       identity = await ipfs.id()
       console.log('js-ipfs ready!')
       root._ipfs = ipfs
@@ -121,7 +137,7 @@ export default {
   }
 }
 
-function getUserOpts (key) {
+function getUserOpts(key) {
   let userOpts = {}
   if (root.localStorage) {
     try {
@@ -134,7 +150,7 @@ function getUserOpts (key) {
   return userOpts
 }
 
-function initJsIpfs (Ipfs, opts) {
+function initJsIpfs(Ipfs, opts) {
   return new Promise((resolve, reject) => {
     const ipfs = new Ipfs(opts)
     ipfs.once('ready', () => resolve(ipfs))
