@@ -7,7 +7,6 @@ env:
   - NO_SANDBOX=true
 install: npm ci
 script:
-  - npm run lint
   - npm run test
   - npm run build
   - npm run test:e2e:ci
