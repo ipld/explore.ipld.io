@@ -40,7 +40,7 @@ export class App extends Component {
         <div className='ph4-l pt4-l'>
           <Page embed={embed} />
         </div>
-        {!showUpdateAvailable ? <UpdateAvailable /> : null}
+        {showUpdateAvailable ? <UpdateAvailable /> : null}
       </div>
     )
   }
