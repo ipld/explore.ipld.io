@@ -11,43 +11,36 @@ export class App extends Component {
     doUpdateUrl: PropTypes.func.isRequired,
     queryObject: PropTypes.object.isRequired,
     registerServiceWorker: PropTypes.func,
-    route: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.element
-    ]).isRequired
+    route: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       showUpdateAvailable: false
     }
     if (props.registerServiceWorker) {
       props.registerServiceWorker({
-        onUpdate: () => this.setState({showUpdateAvailable: true})
+        onUpdate: () => this.setState({ showUpdateAvailable: true })
       })
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.doInitIpfs()
   }
 
-  render () {
-    const {showUpdateAvailable} = this.state
+  render() {
+    const { showUpdateAvailable } = this.state
     const Page = this.props.route
-    const {embed} = this.props.queryObject
+    const { embed } = this.props.queryObject
     return (
       <div className='sans-serif' onClick={navHelper(this.props.doUpdateUrl)}>
-        {embed ? null : (
-          <Header />
-        )}
+        {embed ? null : <Header />}
         <div className='ph4-l pt4-l'>
           <Page embed={embed} />
         </div>
-        {showUpdateAvailable ? (
-          <UpdateAvailable />
-        ) : null }
+        {!showUpdateAvailable ? <UpdateAvailable /> : null}
       </div>
     )
   }
