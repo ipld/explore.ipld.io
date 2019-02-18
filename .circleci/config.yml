@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Make the site
           command: |
-          	npm ci
+            npm ci
             npm run build
       - persist_to_workspace:
           root: .
