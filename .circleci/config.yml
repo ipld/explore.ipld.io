@@ -3,51 +3,59 @@ jobs:
   build:
     docker:
       - image: circleci/node:10
-    environment:
-      CLUSTER_CTL_VERSION: 0.8.0
     steps:
       - checkout
       - run:
-          name: Build the optimized site to ./public
+          name: Make the site
           command: |
             make
-      - run:
-          name: Install ipfs-cluster-ctl binary
-          command: |
-            wget https://dist.ipfs.io/ipfs-cluster-ctl/v${CLUSTER_CTL_VERSION}/ipfs-cluster-ctl_v${CLUSTER_CTL_VERSION}_linux-amd64.tar.gz
-            tar xvfz ipfs-cluster-ctl_v${CLUSTER_CTL_VERSION}_linux-amd64.tar.gz
-            sudo mv ipfs-cluster-ctl/ipfs-cluster-ctl /usr/local/bin
-      - run:
-          name: Download dnslink script
-          command: |
-            wget https://raw.githubusercontent.com/protocol/infra-team/master/website_deploys/dnslink.sh
-            sudo chmod +x dnslink.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build
+
+  deploy:
+    docker:
+      - image: ipfs/ipfs-cluster:0.9.0
+    steps:
+      - attach_workspace:
+        at: /tmp/workspace
       - run:
           name: Pin website, post notification for PRs or update DNS on master
           command: |
             hash=$(ipfs-cluster-ctl --host /dnsaddr/cluster.ipfs.io \
                                     --basic-auth $CLUSTER_USER:$CLUSTER_PASSWORD \
                                     add --rmin 3 --rmax 3 --name "$DNSIMPLE_ZONE" \
-                                    --recursive public/ | tail -n1 | cut -d " " -f 2 )
+                                    --recursive /tmp/workspace/build | tail -n1 | cut -d " " -f 2 )
+            # "preload" hash on the gateway
+            curl https://ipfs.io/ipfs/$hash
+            echo "Website available at https://ipfs.io/ipfs/$hash"
             if [ ! -z "$CIRCLE_PULL_REQUEST" ] ; then
-              comment="Test website: https://ipfs.io/ipfs/$hash"
+              comment="Website preview: https://ipfs.io/ipfs/$hash"
               pr_num=$(echo ${CIRCLE_PULL_REQUEST##*/})
               comment_url=$(curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$pr_num | jq -r ._links.comments.href)
               curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"$comment\"}" $comment_url
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
-              # "preload" hash on the gateway
-              curl https://ipfs.io/ipfs/$hash
-              DNSIMPLE_ENV=prod ./dnslink.sh $DNSIMPLE_ZONE $hash
+              # DNSIMPLE_ENV=prod ./dnslink.sh $DNSIMPLE_ZONE $hash
+              echo "TODO: update dns via dnsimple"
             else
               echo "Not a Pull Request or Master branch. Skipping."
             fi
+      # - run:
+      #     name: Download dnslink script
+      #     command: |
+      #       wget https://raw.githubusercontent.com/protocol/infra-team/master/website_deploys/dnslink.sh
+      #       sudo chmod +x dnslink.sh
 
 workflows:
   version: 2
   build-deploy:
     jobs:
-      - build:
+      - build
+      - deploy:
           context: ipfs-dns-deploy
-          filters:
-            branches:
-              only: master
+          requires:
+            - build
+          # filters:
+          #   branches:
+          #     only: master
