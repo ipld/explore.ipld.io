@@ -20,7 +20,7 @@ jobs:
       - image: ipfs/ipfs-cluster:0.9.0
     steps:
       - attach_workspace:
-        at: /tmp/workspace
+          at: /tmp/workspace
       - run:
           name: Pin website, post notification for PRs or update DNS on master
           command: |
