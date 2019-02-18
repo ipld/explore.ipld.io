@@ -15,10 +15,8 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: Make the site
-          command: |
-            npm ci
-            npm run build
+          name: Build the site
+          command: npm run build
       - persist_to_workspace:
           root: .
           paths:
