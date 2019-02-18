@@ -2,9 +2,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:10.15.1
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install things from npm
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
       - run:
           name: Make the site
           command: |
@@ -17,7 +26,7 @@ jobs:
 
   deploy:
     docker:
-      - image: ipfs/ipfs-cluster:0.9.0
+      - image: ipfs/ipfs-cluster:v0.9.0
     steps:
       - attach_workspace:
           at: /tmp/workspace
