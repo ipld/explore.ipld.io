@@ -25,6 +25,8 @@ jobs:
   deploy:
     docker:
       - image: olizilla/ipfs-dns-deploy
+        environment:
+          DOMAIN: explore.ipld.io
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -33,7 +35,7 @@ jobs:
           command: |
             hash=$(ipfs-cluster-ctl --host /dnsaddr/cluster.ipfs.io \
                                     --basic-auth $CLUSTER_USER:$CLUSTER_PASSWORD \
-                                    add --rmin 3 --rmax 3 --name "$DNSIMPLE_ZONE" \
+                                    add --rmin 3 --rmax 3 --name "$DOMAIN" \
                                     --recursive /tmp/workspace/build | tail -n1 | cut -d " " -f 2 )
             # "preload" hash on the gateway
             curl https://ipfs.io/ipfs/$hash
@@ -45,8 +47,8 @@ jobs:
               # curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"$comment\"}" $comment_url
               echo "TODO: github comment"
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
-              # DNSIMPLE_ENV=prod ./dnslink.sh $DNSIMPLE_ZONE $hash
-              echo "TODO: update dns via dnsimple"
+              # Update DNSLink for domain
+              dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
             else
               echo "Not a Pull Request or Master branch. Skipping."
             fi
