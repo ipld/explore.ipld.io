@@ -6,12 +6,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
       - run:
           name: Install things from npm
           command: npm install
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
       - run:
@@ -24,7 +24,7 @@ jobs:
 
   deploy:
     docker:
-      - image: ipfs/ipfs-cluster:v0.9.0
+      - image: olizilla/ipfs-dns-deploy
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -39,28 +39,23 @@ jobs:
             curl https://ipfs.io/ipfs/$hash
             echo "Website available at https://ipfs.io/ipfs/$hash"
             if [ ! -z "$CIRCLE_PULL_REQUEST" ] ; then
-              comment="Website preview: https://ipfs.io/ipfs/$hash"
-              pr_num=$(echo ${CIRCLE_PULL_REQUEST##*/})
-              comment_url=$(curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$pr_num | jq -r ._links.comments.href)
-              curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"$comment\"}" $comment_url
+              # comment="Website preview: https://ipfs.io/ipfs/$hash"
+              # pr_num=$(echo ${CIRCLE_PULL_REQUEST##*/})
+              # comment_url=$(curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$pr_num | jq -r ._links.comments.href)
+              # curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"$comment\"}" $comment_url
+              echo "TODO: github comment"
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
               # DNSIMPLE_ENV=prod ./dnslink.sh $DNSIMPLE_ZONE $hash
               echo "TODO: update dns via dnsimple"
             else
               echo "Not a Pull Request or Master branch. Skipping."
             fi
-      # - run:
-      #     name: Download dnslink script
-      #     command: |
-      #       wget https://raw.githubusercontent.com/protocol/infra-team/master/website_deploys/dnslink.sh
-      #       sudo chmod +x dnslink.sh
 
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
-      - deploy:
           context: ipfs-dns-deploy
           requires:
             - build
