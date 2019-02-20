@@ -50,10 +50,10 @@ jobs:
             if [ ! -z "$CIRCLE_PULL_REQUEST" ] ; then
               # Add website preview as PR Status - https://developer.github.com/v3/repos/statuses/#create-a-status
 
-              status_url=https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
-              state=success
-              description=Website added to IPFS
-              target_url=$preview_url
+              status_url="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1"
+              state="success"
+              description="Website added to IPFS"
+              target_url="$preview_url"
               context="deploy/ipfs"
 
               curl --silent -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"state\": \"$state\", \"description\": \"$description\", \"target_url\": \"$target_url\", , \"context\": \"$context\"}" $status_url
