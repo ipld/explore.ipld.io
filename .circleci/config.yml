@@ -44,12 +44,12 @@ jobs:
               # Add website preview as PR Status - https://developer.github.com/v3/repos/statuses/#create-a-status
 
               status_url="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1"
-              params=$(jq -n \
+              params=$(jq --monochrome-output --compact-output --null-input \
                 --arg target_url $preview_url \
-                '{ state: "success", target_url: $target_url, description: "Website added to IPFS" }' )
+                '{ "state": "success", "target_url": $target_url, description: "Website added to IPFS", "context": "IPFS" }' )
 
               echo Github status update: $params
-              curl --silent -H "Authorization: token $GITHUB_TOKEN" -X POST -d $params $status_url
+              curl --silent -X POST -H "Authorization: token $GITHUB_TOKEN" -H 'Content-Type: application/json' --data $params $status_url
 
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
               # Update DNSLink for domain
