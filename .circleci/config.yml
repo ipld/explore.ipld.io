@@ -44,7 +44,7 @@ jobs:
               # Add website preview as PR Status - https://developer.github.com/v3/repos/statuses/#create-a-status
 
               status_url="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1"
-              params=$(jq --monochrome-output --compact-output --null-input \
+              params=$(jq --monochrome-output --null-input \
                 --arg target_url $preview_url \
                 '{ "state": "success", "target_url": $target_url, description: "Website added to IPFS", "context": "IPFS" }' )
 
