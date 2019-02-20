@@ -40,20 +40,27 @@ jobs:
               add --rmin 3 --rmax 3 --name "$DOMAIN" \
               --recursive /tmp/workspace/build | tail -n1 | cut -d " " -f 2 )
 
-            # Preload ipfs hash on the gateway
-            curl --silent --output /dev/null --show-error https://ipfs.io/ipfs/$hash
+            preview_url=https://ipfs.io/ipfs/$hash
 
-            echo "Website available at https://ipfs.io/ipfs/$hash"
+            # Preload ipfs hash on the gateway
+            curl --silent --output /dev/null --show-error $preview_url
+
+            echo "Website available at $preview_url"
 
             if [ ! -z "$CIRCLE_PULL_REQUEST" ] ; then
-              # Comment on the PR with the preview url
-              comment="Website preview: https://ipfs.io/ipfs/$hash"
-              pr_num=$(echo ${CIRCLE_PULL_REQUEST##*/})
-              comment_url=$(curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$pr_num | jq -r ._links.comments.href)
-              curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"$comment\"}" $comment_url
+              # Add website preview as PR Status - https://developer.github.com/v3/repos/statuses/#create-a-status
+
+              status_url=https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1
+              state=success
+              description=Website added to IPFS
+              target_url=$preview_url
+              context="deploy/ipfs"
+
+              curl --silent -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"state\": \"$state\", \"description\": \"$description\", \"target_url\": \"$target_url\", , \"context\": \"$context\"}" $status_url
 
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
               # Update DNSLink for domain
+
               dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
 
             else
