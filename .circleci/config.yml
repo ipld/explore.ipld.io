@@ -5,17 +5,9 @@ jobs:
       - image: circleci/node:10.15.1
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
       - run:
-          name: Install things from npm
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
+          command: npm ci
       - run:
-          name: Build the site
           command: npm run build
       - persist_to_workspace:
           root: .
@@ -27,6 +19,7 @@ jobs:
       - image: olizilla/ipfs-dns-deploy
         environment:
           DOMAIN: explore.ipld.io
+          BUILD_DIR: build
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -38,25 +31,25 @@ jobs:
               --host /dnsaddr/cluster.ipfs.io \
               --basic-auth $CLUSTER_USER:$CLUSTER_PASSWORD \
               add --rmin 3 --rmax 3 --name "$DOMAIN" \
-              --recursive /tmp/workspace/build | tail -n1 | cut -d " " -f 2 )
+              --recursive /tmp/workspace/$BUILD_DIR | tail -n1 | cut -d " " -f 2 )
 
             preview_url=https://ipfs.io/ipfs/$hash
 
             # Preload ipfs hash on the gateway
             curl --silent --output /dev/null --show-error $preview_url
 
-            echo "Website available at $preview_url"
+            echo "Website added to IPFS: $preview_url"
 
             if [ ! -z "$CIRCLE_PULL_REQUEST" ] ; then
               # Add website preview as PR Status - https://developer.github.com/v3/repos/statuses/#create-a-status
 
               status_url="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1"
-              state="success"
-              description="Website added to IPFS"
-              target_url="$preview_url"
-              context="deploy/ipfs"
+              params=$(jq -n \
+                --arg target_url $preview_url \
+                '{state: "success", target_url: $target_url description: "Website added to IPFS", context: "deploy/ipfs"}' )
 
-              curl --silent -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"state\": \"$state\", \"description\": \"$description\", \"target_url\": \"$target_url\", , \"context\": \"$context\"}" $status_url
+              echo Github status update: $params
+              curl --silent -H "Authorization: token $GITHUB_TOKEN" -X POST -d $params $status_url
 
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
               # Update DNSLink for domain
