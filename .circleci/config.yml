@@ -46,7 +46,7 @@ jobs:
               status_url="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/statuses/$CIRCLE_SHA1"
               params=$(jq -n \
                 --arg target_url $preview_url \
-                '{ state: "success", target_url: $target_url, description: "Website added to IPFS", context: "deploy/ipfs" }' )
+                '{ state: "success", target_url: $target_url, description: "Website added to IPFS" }' )
 
               echo Github status update: $params
               curl --silent -H "Authorization: token $GITHUB_TOKEN" -X POST -d $params $status_url
