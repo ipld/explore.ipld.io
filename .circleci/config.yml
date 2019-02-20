@@ -33,22 +33,29 @@ jobs:
       - run:
           name: Pin website, post notification for PRs or update DNS on master
           command: |
-            hash=$(ipfs-cluster-ctl --host /dnsaddr/cluster.ipfs.io \
-                                    --basic-auth $CLUSTER_USER:$CLUSTER_PASSWORD \
-                                    add --rmin 3 --rmax 3 --name "$DOMAIN" \
-                                    --recursive /tmp/workspace/build | tail -n1 | cut -d " " -f 2 )
-            # "preload" hash on the gateway
-            curl https://ipfs.io/ipfs/$hash
+            # Upload build dir to cluster.ipfs.io
+            hash=$(ipfs-cluster-ctl \
+              --host /dnsaddr/cluster.ipfs.io \
+              --basic-auth $CLUSTER_USER:$CLUSTER_PASSWORD \
+              add --rmin 3 --rmax 3 --name "$DOMAIN" \
+              --recursive /tmp/workspace/build | tail -n1 | cut -d " " -f 2 )
+
+            # Preload ipfs hash on the gateway
+            curl --silent --output /dev/null --show-error https://ipfs.io/ipfs/$hash
+
             echo "Website available at https://ipfs.io/ipfs/$hash"
+
             if [ ! -z "$CIRCLE_PULL_REQUEST" ] ; then
-              # comment="Website preview: https://ipfs.io/ipfs/$hash"
-              # pr_num=$(echo ${CIRCLE_PULL_REQUEST##*/})
-              # comment_url=$(curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$pr_num | jq -r ._links.comments.href)
-              # curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"$comment\"}" $comment_url
-              echo "TODO: github comment"
+              # Comment on the PR with the preview url
+              comment="Website preview: https://ipfs.io/ipfs/$hash"
+              pr_num=$(echo ${CIRCLE_PULL_REQUEST##*/})
+              comment_url=$(curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/pulls/$pr_num | jq -r ._links.comments.href)
+              curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"$comment\"}" $comment_url
+
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
               # Update DNSLink for domain
               dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
+
             else
               echo "Not a Pull Request or Master branch. Skipping."
             fi
