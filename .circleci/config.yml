@@ -48,8 +48,8 @@ jobs:
                 --arg target_url $preview_url \
                 '{ "state": "success", "target_url": $target_url, description: "Website added to IPFS", "context": "IPFS" }' )
 
-              echo Github status update: $params
-              curl --silent -X POST -H "Authorization: token $GITHUB_TOKEN" -H 'Content-Type: application/json' --data $params $status_url
+              echo "Github status update: $params"
+              curl --silent -X POST -H "Authorization: token $GITHUB_TOKEN" -H 'Content-Type: application/json' --data "$params" $status_url
 
             elif [ "$CIRCLE_BRANCH" == "master" ] ; then
               # Update DNSLink for domain
