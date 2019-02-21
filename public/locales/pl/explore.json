@@ -2,7 +2,7 @@
   "appName": "Przeglądarka IPLD",
   "StartExploringPage": {
     "title": "Przeglądarka - IPLD",
-    "header": "Przeglądaj Las Merkle’a",
+    "header": "Eksploruj Las Merkle’a",
     "leadParagraph": "Wklej CID aby pobrać dowolny węzeł IPLD lub wybierz jeden z polecanych zbiorów."
   },
   "AboutIpld": {
@@ -21,7 +21,7 @@
     "hashDigest": "wynik funkcji haszującej"
   },
   "ObjectInfo": {
-    "gatewayLink": "View on IPFS Gateway"
+    "gatewayLink": "Wyświetl przy użyciu bramy IPFS"
   },
   "base": "baza",
   "version": "wersja",

@@ -1,7 +1,0 @@
-website([
-  website: 'explore.ipld.io',
-  build_directory: 'build/',
-  record: [
-    'master': '_dnslink',
-  ]
-])
