@@ -16,7 +16,7 @@ jobs:
 
   deploy:
     docker:
-      - image: olizilla/ipfs-dns-deploy:1.0
+      - image: olizilla/ipfs-dns-deploy:1.1
         environment:
           DOMAIN: explore.ipld.io
           BUILD_DIR: build
