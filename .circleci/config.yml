@@ -24,7 +24,7 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run:
-          name: Pin website, post notification for PRs or update DNS on master
+          name: Deploy website to IPFS
           command: |
             pin_name="$DOMAIN build $CIRCLE_BUILD_NUMBER"
 
@@ -33,7 +33,7 @@ jobs:
             echo "Website added to IPFS: https://ipfs.io/ipfs/$hash"
 
             if [ "$CIRCLE_BRANCH" == "master" ] ; then
-              dnslink-dnsimple -d $DEV_DOMAIN -r _dnslink -l /ipfs/$hash
+              dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
             fi
 workflows:
   version: 2
