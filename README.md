@@ -14,7 +14,7 @@ The app is built with [`create-react-app`](https://github.com/facebook/create-re
 
 ## Install
 
-With `node` > 10 and `npm` @ 6+ installed, run
+With `node` > 10 (but < 12) and `npm` @ 6+ installed, run
 
 ```js
 npm install
