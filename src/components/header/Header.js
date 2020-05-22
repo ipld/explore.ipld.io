@@ -1,7 +1,7 @@
 import React from 'react'
 import ipfsLogo from './ipfs-logo.svg'
 import { IpldExploreForm } from 'ipld-explorer-components'
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 const Header = ({ t }) => {
   return (
@@ -21,4 +21,4 @@ const Header = ({ t }) => {
   )
 }
 
-export default translate('explore')(Header)
+export default withTranslation('explore')(Header)
