@@ -1,10 +1,10 @@
 [main]
 host = https://www.transifex.com
-lang_map = zh_CN: zh-CN, zh_HK: zh-HK, zh_TW: zh-TW, ko_KR: ko-KR, pt_PT: pt-PT, pt_BR: pt-BR
+lang_map = zh_CN: zh-CN, zh_HK: zh-HK, zh_TW: zh-TW, ko_KR: ko-KR, pt_PT: pt-PT, pt_BR: pt-BR, ja_JP: ja-JP
 
 [ipld-explorer.explore-json]
 file_filter = public/locales/<lang>/explore.json
-minimum_perc = 35
+minimum_perc = 75
 source_file = public/locales/en/explore.json
 source_lang = en
 type = KEYVALUEJSON

@@ -3,11 +3,11 @@
   "StartExploringPage": {
     "title": "Explorer - IPLD",
     "header": "Explorer la forêt de Merkle",
-    "leadParagraph": "Collez un CID dans la section appropriée pour récupérer les nœuds IPLD qu'il adresse, ou choisissez des données mises en avant"
+    "leadParagraph": "Collez un CID dans la section appropriée pour récupérer le nœud IPLD qu'il adresse, ou choisissez un jeu de données proposé."
   },
   "AboutIpld": {
     "paragraph1":"<0>IPLD est <1>le modèle de données du web \"indexé par contenu\".</1> Il nous permet de traiter toutes les structures de données liées par hash, en tant que sous-ensemble d'un espace d'informations unifié, unifiant tous les modèles de données qui associent les données par hash, en tant qu'instances d'IPLD.",
-    "paragraph2": "<0>L’indexation du contenu par hash est devenu largement répandu pour la connexion de données dans les systèmes distribués, de la blockchain sur laquelle est basée votre cryptomonnaie favorite, aux commits qui suivent votre code, jusqu'au contenu du web au sens large. Mais, alors que tous ces outils se basent sur des aspects rudimentaires communs, leurs structures de données sous-jacentes sont spécifiques et ne sont pas interopérables.</0>",
+    "paragraph2": "<0>L’indexation du contenu par hash est devenu largement répandu pour la connection de données dans les systèmes distribués, de la blockchain sur laquelle est basée votre cryptomonnaie favorite, aux commits qui suivent votre code, jusqu'au contenu du web au sens large. Mais, alors que tous ces outils se basent sur des aspects rudimentaires communs, leurs structures de données sous-jacentes sont spécifiques et ne sont pas interopérables.</0>",
     "paragraph3": "<0>Entrer dans IPLD: un simple outil pour tous les protocoles fonctionnant avec des hash. Grâce à IPLD, les liens peuvent êtres accessibles à travers les protocoles, vous permettant d'explorer les données sans prendre en compte le protocole sous-jacent.</0>"
   },
   "ExplorePage": {
@@ -26,5 +26,35 @@
   "base": "base",
   "version": "version",
   "codec": "codec",
-  "multihash": "multihash"
+  "multihash": "multihash",
+  "tour": {
+    "projects": {
+      "title": "Jeux de données proposés",
+      "paragraph1": "Explorez les jeux de données proposés ou copiez un CID pour voir comment les données sont structurées et liées entre les protocoles."
+    },
+    "explorer": {
+      "step1": {
+        "title": "Explorateur IPLD",
+        "paragraph1": "Votre voyage dans l'explorateur commence ici. Contuinez à en apprendre plus."
+      },
+      "step2": {
+        "title": "Fils d'Ariane",
+        "paragraph1": "Le chemin qui mène à ce noeud.",
+        "paragraph2": "Cliquer issue pour naviguer entre les parents ou les enfants."
+      },
+      "step3": {
+        "title": "Information du pair",
+        "paragraph1": "Trouvez ici le détail des informations sur votre noeud et ouvrez-le dans la passerelle IPFS.",
+        "paragraph2": "Si le noeud est un répertoire vous pouvez voir les sous-répertoires et naviguer à l'intérieur. "
+      },
+      "step4": {
+        "title": "Info CID",
+        "paragraph1": "Le CID analysé pour apprendre sa signification."
+      },
+      "step5": {
+        "title": "Représentation visuelle",
+        "paragraph1": "Une représentation visuelle du noeud et de ses enfants."
+      }
+    }
+  }
 }
