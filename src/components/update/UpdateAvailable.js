@@ -1,5 +1,5 @@
 import React from 'react'
-import { Trans, withTranslation } from 'react-i18next'
+import { Trans, translate } from 'react-i18next'
 
 const UpdateAvailable = () => {
   return (
@@ -19,4 +19,4 @@ const UpdateAvailable = () => {
   )
 }
 
-export default withTranslation('explore')(UpdateAvailable)
+export default translate('explore')(UpdateAvailable)

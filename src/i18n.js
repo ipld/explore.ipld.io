@@ -29,8 +29,7 @@ i18n
       wait: true,
       bindI18n: 'languageChanged loaded',
       bindStore: 'added removed',
-      nsMode: 'default',
-      useSuspense: false
+      nsMode: 'default'
     }
   })
 
