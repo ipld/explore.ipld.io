@@ -49,29 +49,8 @@ export default {
 
     // TRY window.ipfs!
     if (root.ipfs) {
-      try {
-        if (root.ipfs.enable) {
-          root._ipfs = await root.ipfs.enable({ commands: ['id', 'block.get'] })
-        } else {
-          root._ipfs = root.ipfs
-        }
-        identity = await root._ipfs.id()
-        console.log('Found `window.ipfs`. Nice!', root._ipfs)
-        console.timeEnd('IPFS_INIT')
-        return dispatch({
-          type: 'IPFS_INIT_FINISHED',
-          payload: {
-            identity,
-            provider: 'window.ipfs'
-          }
-        })
-      } catch (error) {
-        console.log('Failed to get id from window.ipfs', error)
-      }
-    } else {
-      console.log(
-        'No window.ipfs found. Consider Installing the IPFS Companion web extension - https://github.com/ipfs-shipyard/ipfs-companion'
-      )
+      // no-op for now
+      // TODO: after switch to latest js-ipfs (with async iterators) use https://github.com/ipfs-shipyard/ipfs-provider
     }
 
     // TRY js-ipfs-api!
@@ -130,6 +109,19 @@ export default {
         }
       })
     } catch (error) {
+      if (error.message && error.message.includes('subtle is undefined')) {
+        console.warn('IPLD Explorer requires access to window.crypto, redirecting to canonical URL that is known to provide it in all browsers')
+        // This error means js-ipfs was loaded in a context that is not marked
+        // as Secure Context by the browser vendor.  (example: *.localhost in
+        // Firefox until https://bugzilla.mozilla.org/show_bug.cgi?id=1220810
+        // is addresssed)
+        // This is difficult to debug for regular user, as Explorer simply fails to load anything from IPFS.
+        // For now, we detect this failure and redirect to canonical version with TLS, so it always works.
+        const url = new URL('https://explore.ipld.io/?x-ipfs-companion-no-redirect')
+        url.hash = window.location.hash
+        window.location.replace(url.toString())
+        return
+      }
       console.log('Failed to initialise js-ipfs', error)
       console.timeEnd('IPFS_INIT')
       return dispatch({ type: 'IPFS_INIT_FAILED', error })
