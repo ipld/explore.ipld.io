@@ -1,5 +1,10 @@
 {
   "appName": "IPLD-Explorer",
+  "tabName": "Erkunden",
+  "homeLink": "Home",
+  "UpdateAvailable": {
+    "paragraph1": "A new version of IPLD Explorer is available; <1>please reload</1>."
+  },
   "StartExploringPage": {
     "title": "Erkunden – IPLD",
     "header": "Merkle-Wald erkunden",
@@ -17,7 +22,7 @@
     "explore": "Erkunden"
   },
   "CidInfo": {
-    "header": "CID-Info",
+    "header": "CID Informationen",
     "hashDigest": "Hash-Extrakt"
   },
   "ObjectInfo": {
@@ -35,7 +40,7 @@
     "explorer": {
       "step1": {
         "title": "IPLD-Explorer",
-        "paragraph1": "Deine Reise im Explorer startet hier. Lerne mehr."
+        "paragraph1": "Your journey with IPLD Explorer starts here. Click \"Next\" to learn more."
       },
       "step2": {
         "title": "Breadcrumbs",
