@@ -1,8 +1,9 @@
 import i18n from 'i18next'
 import ICU from 'i18next-icu'
-import XHR from 'i18next-xhr-backend'
+import StaticHttpBackend from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
+import ca from 'i18next-icu/locale-data/ca'
 import cs from 'i18next-icu/locale-data/cs'
 import da from 'i18next-icu/locale-data/da'
 import de from 'i18next-icu/locale-data/de'
@@ -20,11 +21,11 @@ import ru from 'i18next-icu/locale-data/ru'
 import sv from 'i18next-icu/locale-data/sv'
 import zh from 'i18next-icu/locale-data/zh'
 
-const localeData = [cs, da, de, en, es, fr, it, ja, ko, nl, no, pl, pt, ru, sv, zh]
+const localeData = [ca, cs, da, de, en, es, fr, it, ja, ko, nl, no, pl, pt, ru, sv, zh]
 
 i18n
   .use(new ICU({ localeData }))
-  .use(XHR)
+  .use(StaticHttpBackend)
   .use(LanguageDetector)
   .init({
     ns: ['explore'],
@@ -34,7 +35,7 @@ i18n
       zh: ['zh-CN', 'en'],
       default: ['en']
     },
-    debug: process.env.NODE_ENV !== 'production',
+    debug: process.env.DEBUG,
     backend: {
       // ensure a realtive path is used to look up the locales, so it works when used from /ipfs/<cid>
       loadPath: 'locales/{{lng}}/{{ns}}.json'

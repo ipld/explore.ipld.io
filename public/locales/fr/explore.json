@@ -1,5 +1,10 @@
 {
   "appName": "Explorateur IPLD",
+  "tabName": "Explorer",
+  "homeLink": "Accueil",
+  "UpdateAvailable": {
+    "paragraph1": "A new version of IPLD Explorer is available; <1>please reload</1>."
+  },
   "StartExploringPage": {
     "title": "Explorer - IPLD",
     "header": "Explorer la forêt de Merkle",
