@@ -4,11 +4,11 @@
 
 ![Screenshot of the IPLD explorer](https://user-images.githubusercontent.com/58871/43152632-f310763c-8f66-11e8-9449-2e362a9f3047.png)
 
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg)](https://protocol.ai/) [![](https://img.shields.io/badge/project-IPFS-blue.svg)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg)](http://webchat.freenode.net/?channels=%23ipfs) [![Build Status](https://travis-ci.org/ipfs-shipyard/ipld-explorer.svg)](https://travis-ci.org/ipfs-shipyard/ipld-explorer) [![dependencies Status](https://david-dm.org/ipfs-shipyard/ipld-explorer/master/status.svg)](https://david-dm.org/ipfs-shipyard/ipld-explorer/master)
+[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg)](https://protocol.ai/) [![](https://img.shields.io/badge/project-IPFS-blue.svg)](http://ipfs.io/) [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg)](http://webchat.freenode.net/?channels=%23ipfs) [![Build Status](https://travis-ci.org/ipfs/explore.ipld.io.svg)](https://travis-ci.org/ipfs/explore.ipld.io) [![dependencies Status](https://david-dm.org/ipfs/explore.ipld.io/master/status.svg)](https://david-dm.org/ipfs/explore.ipld.io/master)
 
 ## Background
 
-The app accesses a local IPFS daemon via [`window.ipfs-fallback`](https://github.com/tableflip/window.ipfs-fallback). It will use the `window.ipfs` api provided by the [IPFS Companion](https://github.com/ipfs-shipyard/ipfs-companion) web-extension where available, and fallback to using [js-ipfs-api](https://github.com/ipfs/js-ipfs-api)
+The app will use HTTP API via [`ipfs-http-client`](https://www.npmjs.com/package/ipfs-http-client) provided by locally running IPFS node with correct CORS headers set up, and fallback to using [js-ipfs](https://github.com/ipfs/js-ipfs) otherwise.
 
 The app is built with [`create-react-app`](https://github.com/facebook/create-react-app). Please read the [docs](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents).
 
