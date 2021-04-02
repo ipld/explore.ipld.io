@@ -1,4 +1,4 @@
-# IPLD Explorer
+# IPLD Explorer at explore.ipld.io
 
 > Explore the Merkle Forest from the comfort of your browser.
 
@@ -8,9 +8,13 @@
 
 ## Background
 
+This repo is responsible for standalone tool that lives at https://explore.ipld.io  
+Component code lives in a separate repo at [ipld-explorer-components](https://github.com/ipfs/ipld-explorer-components)
+
 The app will use HTTP API via [`ipfs-http-client`](https://www.npmjs.com/package/ipfs-http-client) provided by locally running IPFS node with correct CORS headers set up, and fallback to using [js-ipfs](https://github.com/ipfs/js-ipfs) otherwise.
 
-The app is built with [`create-react-app`](https://github.com/facebook/create-react-app). Please read the [docs](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents).
+The app is built with [`create-react-app`](https://github.com/facebook/create-react-app). Please read the [docs](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents). 
+
 
 ## Install
 
