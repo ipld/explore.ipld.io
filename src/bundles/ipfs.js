@@ -144,7 +144,35 @@ function getUserOpts(key) {
 
 function initJsIpfs(Ipfs, opts) {
   return new Promise((resolve, reject) => {
-    const ipfs = new Ipfs(opts)
+    const jsIpfsOpts = Object.assign(
+      {
+        config: {
+          Bootstrap: [
+            '/dns4/nrt-1.bootstrap.libp2p.io/tcp/443/wss/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt',
+            '/dns4/sjc-1.bootstrap.libp2p.io/tcp/443/wss/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN',
+            '/dns4/sjc-2.bootstrap.libp2p.io/tcp/443/wss/p2p/QmZa1sAxajnQjVM8WjWXoMbmPd7NsWhfKsPkErzpm9wGkp',
+            '/dns4/ams-2.bootstrap.libp2p.io/tcp/443/wss/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
+            '/dns4/ewr-1.bootstrap.libp2p.io/tcp/443/wss/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+            '/dns4/node0.preload.ipfs.io/tcp/443/wss/p2p/QmZMxNdpMkewiVZLMRxaNxUeZpDUb34pWjZ1kZvsd16Zic',
+            '/dns4/node1.preload.ipfs.io/tcp/443/wss/p2p/Qmbut9Ywz9YEDrz8ySBSgWyJk41Uvm2QJPhwDJzJyGFsD6',
+            '/dns4/node2.preload.ipfs.io/tcp/443/wss/p2p/QmV7gnbW5VTcJ3oyM2Xk1rdFBJ3kTkvxc87UFGsun29STS',
+            '/dns4/node3.preload.ipfs.io/tcp/443/wss/p2p/QmY7JB6MQXhxHvq7dBDh4HpbH29v4yE9JRadAVpndvzySN'
+          ]
+        },
+        preload: {
+          enabled: true,
+          addresses: [
+            '/dns4/node0.preload.ipfs.io/tcp/443/https',
+            '/dns4/node1.preload.ipfs.io/tcp/443/https',
+            '/dns4/node2.preload.ipfs.io/tcp/443/https',
+            '/dns4/node3.preload.ipfs.io/tcp/443/https'
+          ]
+        }
+      },
+      opts
+    )
+
+    const ipfs = new Ipfs(jsIpfsOpts)
     ipfs.once('ready', () => resolve(ipfs))
     ipfs.once('error', err => reject(err))
   })
