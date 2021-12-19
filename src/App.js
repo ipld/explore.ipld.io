@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'redux-bundler-react'
-import navHelper from 'internal-nav-helper'
+import { getNavHelper } from 'internal-nav-helper'
 import Header from './components/header/Header'
 import UpdateAvailable from './components/update/UpdateAvailable'
 
@@ -35,7 +35,7 @@ export class App extends Component {
     const Page = this.props.route
     const { embed } = this.props.queryObject
     return (
-      <div className='sans-serif' onClick={navHelper(this.props.doUpdateUrl)}>
+      <div className='sans-serif' onClick={getNavHelper(this.props.doUpdateUrl)}>
         {embed ? null : <Header />}
         <div className='ph4-l pt4-l'>
           <Page embed={embed} />
