@@ -1,17 +1,29 @@
 import React from 'react'
 import ipfsLogo from './ipfs-logo.svg'
 import { IpldExploreForm } from 'ipld-explorer-components'
+import { IpldCarExploreForm } from 'ipld-explorer-components'
 import { withTranslation } from 'react-i18next'
 
 const Header = ({ t }) => {
+
+  const [exploreFormType, setExploreFormType] = React.useState('cid')
+
+  function handleOnChange(evt) {
+    setExploreFormType(evt.target.value)
+  }
+
   return (
     <header className='flex-l items-center pa3 bg-navy bb bw3 border-aqua tc tl-l'>
       <a href='#/' title={t('homeLink')} className='flex-none v-mid'>
         <img src={ipfsLogo} alt='IPFS' style={{height: 50, width: 117.5}} />
       </a>
-      <div className='flex-auto ph2 ph3-l pt1'>
+      <div className="btn-group" style={{ marginLeft: '15px'}}>
+        <button onClick={handleOnChange} value="cid" className="f6 link dim br2 ba ph3 pv2 mb2 dib navy" style={{ marginTop: '5px'}} aria-current="page">CID</button>
+        <button onClick={handleOnChange} value="car" className="f6 link dim br2 ba ph3 pv2 mb2 dib navy" style={{ marginTop: '5px'}} aria-current="page">CAR</button>
+      </div>
+      <div className='flex-auto ph2 ph3-l pt1' style={{ paddingLeft: '2px'}}>
         <div style={{maxWidth: 560}} className='center-m'>
-          <IpldExploreForm />
+          {exploreFormType === 'cid' ?  <IpldExploreForm /> :<IpldCarExploreForm />}
         </div>
       </div>
       <div className='pt2 pt0-l ma0 inline-flex items-center'>
