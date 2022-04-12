@@ -1,0 +1,36 @@
+.cidlookup {
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 5px 0px 0px 5px;
+  background-color: #69c4cd;
+  border: 0px;
+  color: #fff;
+}
+
+.cidlookup{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.cidlookup:after {
+  background-color: #fff;
+  color: #69c4cd;
+  position: absolute;
+  opacity: 0;
+  top: 14px;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.cidlookup:hover{
+  background-color: #fff;
+  color: #69c4cd;
+}
+
+.cidlookup:hover:after {
+  opacity: 1;
+  right: 10px;
+}

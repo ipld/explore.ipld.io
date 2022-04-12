@@ -3,6 +3,7 @@ import ipfsLogo from './ipfs-logo.svg'
 import { IpldExploreForm } from 'ipld-explorer-components'
 import { IpldCarExploreForm } from 'ipld-explorer-components'
 import { withTranslation } from 'react-i18next'
+import {headerStyle} from './header.css'
 
 const Header = ({ t }) => {
 
@@ -18,8 +19,8 @@ const Header = ({ t }) => {
         <img src={ipfsLogo} alt='IPFS' style={{height: 50, width: 117.5}} />
       </a>
       <div className="btn-group" style={{ marginLeft: '15px'}}>
-        <button onClick={handleOnChange} value="cid" className="f6 link dim br2 ba ph3 pv2 mb2 dib navy" style={{ marginTop: '5px'}} aria-current="page">CID</button>
-        <button onClick={handleOnChange} value="car" className="f6 link dim br2 ba ph3 pv2 mb2 dib navy" style={{ marginTop: '5px'}} aria-current="page">CAR</button>
+        <button onClick={handleOnChange} value="cid" className="f6 link dim br2 ba ph3 pv2 mb2 dib navy cidlookup" style={{ borderRight: '1px solid white', marginTop: '5px', borderRadius: '5px 0px 0px 5px' }} aria-current="page">CID</button>
+        <button onClick={handleOnChange} value="car" className="f6 link dim br2 ba ph3 pv2 mb2 dib navy cidlookup" style={{ marginTop: '5px', borderRadius: '0px 5px 5px 0px'}} aria-current="page">CAR</button>
       </div>
       <div className='flex-auto ph2 ph3-l pt1' style={{ paddingLeft: '2px'}}>
         <div style={{maxWidth: 560}} className='center-m'>
