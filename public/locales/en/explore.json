@@ -22,7 +22,8 @@
     "explore": "Explore"
   },
   "IpldCarExploreForm": {
-    "explore": "Explore"
+    "imports": "Import",
+    "uploadCarFile": "Upload CAR File"
   },
   "CidInfo": {
     "header": "CID info",
