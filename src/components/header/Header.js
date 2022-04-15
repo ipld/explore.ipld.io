@@ -30,9 +30,9 @@ const Header = ({ t }) => {
       <a href='#/' title={t('homeLink')} className='flex-none v-mid'>
         <img src={ipfsLogo} alt='IPFS' style={{height: 50, width: 117.5}} />
       </a>
-      <div className="btn-group" style={{ marginLeft: '15px'}}>
-        <button onClick={handleOnChange} value="cid" className='f6 link dim br2 ba ph3 pv2 mb2 dib navy' style={{ color: 'white', border: '0px', backgroundColor: `${cidColor}`, borderRight: '1px solid white', marginTop: '5px', borderRadius: '5px 0px 0px 5px' }} aria-current="page">CID</button>
-        <button onClick={handleOnChange} value="car" className='f6 link dim br2 ba ph3 pv2 mb2 dib navy' style={{ color: 'white', border: '0px', backgroundColor: `${carColor}`, marginTop: '5px', borderRadius: '0px 5px 5px 0px'}} aria-current="page">CAR</button>
+      <div className="btn-group" className='ph2 ph3-l'>
+        <button onClick={handleOnChange} value="cid" className='f6 pointer dim br2 ba ph3 pv2 mb2 dib navy' style={{ color: 'white', border: '0px', backgroundColor: `${cidColor}`, borderRight: '1px solid #0b3a53', marginTop: '5px', borderRadius: '5px 0px 0px 5px' }} aria-current="page">CID</button>
+        <button onClick={handleOnChange} value="car" className='f6 pointer dim br2 ba ph3 pv2 mb2 dib navy' style={{ color: 'white', border: '0px', backgroundColor: `${carColor}`, marginTop: '5px', borderRadius: '0px 5px 5px 0px'}} aria-current="page">CAR</button>
       </div>
       <div className='flex-auto ph2 ph3-l pt1' style={{ paddingLeft: '2px'}}>
         <div style={{maxWidth: 560}} className='center-m'>
