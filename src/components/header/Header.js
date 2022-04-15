@@ -5,11 +5,8 @@ import { IpldCarExploreForm } from 'ipld-explorer-components'
 import { withTranslation } from 'react-i18next'
 
 const Header = ({ t }) => {
-
-  let activeButtonStyle = 'f6 link dim br2 ba ph3 pv2 mb2 dib navy'
   let activeColor = '#69c4cd'
   let inActiveColor = '#8db6ba'
-  let inActiveButtonStyle = 'f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-gray'
   const [exploreFormType, setExploreFormType] = React.useState('cid')
   const [cidColor, setCidColor] = React.useState(activeColor)
   const [carColor, setCarColor] = React.useState(inActiveColor)
