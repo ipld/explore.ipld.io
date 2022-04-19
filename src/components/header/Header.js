@@ -5,15 +5,15 @@ import { IpldCarExploreForm } from 'ipld-explorer-components'
 import { withTranslation } from 'react-i18next'
 
 const Header = ({ t }) => {
-  let activeColor = '#69c4cd'
-  let inActiveColor = '#8db6ba'
+  let activeColor = 'navy 0-100'
+  let inActiveColor = 'navy o-50'
   const [exploreFormType, setExploreFormType] = React.useState('cid')
   const [cidColor, setCidColor] = React.useState(activeColor)
   const [carColor, setCarColor] = React.useState(inActiveColor)
 
   function handleOnChange(evt) {
     setExploreFormType(evt.target.value)
-    if(evt.target.value == 'cid') {
+    if(evt.target.value === 'cid') {
       setCidColor(activeColor)
       setCarColor(inActiveColor)
     } else {
@@ -27,11 +27,11 @@ const Header = ({ t }) => {
       <a href='#/' title={t('homeLink')} className='flex-none v-mid'>
         <img src={ipfsLogo} alt='IPFS' style={{height: 50, width: 117.5}} />
       </a>
-      <div className="btn-group" className='ph2 ph3-l'>
-        <button onClick={handleOnChange} value="cid" className='f6 pointer dim br2 ba ph3 pv2 mb2 dib navy' style={{ color: 'white', border: '0px', backgroundColor: `${cidColor}`, borderRight: '1px solid #0b3a53', marginTop: '5px', borderRadius: '5px 0px 0px 5px' }} aria-current="page">CID</button>
-        <button onClick={handleOnChange} value="car" className='f6 pointer dim br2 ba ph3 pv2 mb2 dib navy' style={{ color: 'white', border: '0px', backgroundColor: `${carColor}`, marginTop: '5px', borderRadius: '0px 5px 5px 0px'}} aria-current="page">CAR</button>
+      <div className='btn-group ph1 ph3-l pt1'>
+        <button onClick={handleOnChange} value="cid" className={`f6 pointer ph3 pv2 mb2 dib navy bg-aqua ${cidColor} border-navy br2 ba br--left`} aria-current="page">CID</button>
+        <button onClick={handleOnChange} value="car" className={`f6 pointer ph3 pv2 mb2 dib navy bg-aqua ${carColor} border-navy br2 ba br--right`} aria-current="page">CAR</button>
       </div>
-      <div className='flex-auto ph2 ph3-l pt1' style={{ paddingLeft: '2px'}}>
+      <div className='flex-auto ph2 ph0-l pt1'>
         <div style={{maxWidth: 560}} className='center-m'>
           {exploreFormType === 'cid' ?  <IpldExploreForm /> :<IpldCarExploreForm />}
         </div>
