@@ -12,7 +12,7 @@ const defaultState = {
   ipfsReady: false
 }
 
-export default {
+const bundle = {
   name: 'ipfs',
 
   reducer(state, { type, payload, error }) {
@@ -123,6 +123,7 @@ export default {
     }
   }
 }
+export default bundle
 
 function getUserOpts(key) {
   let userOpts = {}
