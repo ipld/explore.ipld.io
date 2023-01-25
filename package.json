@@ -18,6 +18,7 @@
     "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
+    "@ipfs-shipyard/ignite-metrics": "^1.2.2",
     "i18next": "^21.6.16",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-chained-backend": "^3.0.2",
