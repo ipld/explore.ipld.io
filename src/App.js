@@ -44,8 +44,8 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.props.doInitIpfs()
     this.initTelemetry()
+    this.props.doInitIpfs()
   }
 
   render() {
