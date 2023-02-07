@@ -62,9 +62,9 @@
     "patch-package": "^6.5.1",
     "prettier": "^1.16.4",
     "puppeteer": "^2.0.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "react-test-renderer": "^16.13.1",
-    "webpack-bundle-analyzer": "^3.0.3"
+    "webpack-bundle-analyzer": "^4.7.0"
   },
   "eslintConfig": {
     "extends": "react-app"
