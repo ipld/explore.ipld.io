@@ -1,8 +1,8 @@
 import 'tachyons'
 import 'ipfs-css'
 import 'react-virtualized/styles.css'
-import 'ipld-explorer-components/dist/components/object-info/LinksTable.css'
-import 'ipld-explorer-components/dist/components/loader/Loader.css'
+import 'ipld-explorer-components/dist-esm/components/object-info/LinksTable.css'
+import 'ipld-explorer-components/dist-esm/components/loader/Loader.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom'

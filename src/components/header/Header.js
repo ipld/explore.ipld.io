@@ -1,7 +1,7 @@
 import React from 'react'
 import ipfsLogo from './ipfs-logo.svg'
-import { IpldExploreForm } from 'ipld-explorer-components'
-import { IpldCarExploreForm } from 'ipld-explorer-components'
+import { IpldExploreForm } from 'ipld-explorer-components/dist-cjs'
+import { IpldCarExploreForm } from 'ipld-explorer-components/dist-cjs'
 import { withTranslation } from 'react-i18next'
 
 const Header = ({ t }) => {
