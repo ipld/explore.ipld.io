@@ -12,7 +12,7 @@ export class App extends Component {
     doUpdateUrl: PropTypes.func.isRequired,
     queryObject: PropTypes.object.isRequired,
     registerServiceWorker: PropTypes.func,
-    route: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired
+    route: PropTypes.oneOfType([PropTypes.func, PropTypes.element, PropTypes.elementType]).isRequired
   }
 
   constructor(props) {
