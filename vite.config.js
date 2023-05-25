@@ -6,12 +6,25 @@ export default defineConfig(() => {
   return {
     build: {
       outDir: 'build',
+      commonjsOptions: {
+        requireReturnsDefault: 'auto',
+        include: [
+          /ipld-explorer-components/,
+        ],
+      },
     },
     define: {
       global: 'globalThis',
       process: {
         env: {}
       }
+    },
+    // https://vitejs.dev/guide/dep-pre-bundling.html#monorepos-and-linked-dependencies
+    optimizeDeps: {
+      include: [
+        'ipld-explorer-components',
+      ],
+      exclude: []
     },
     plugins: [
       react(),
@@ -25,6 +38,6 @@ export default defineConfig(() => {
         { find: /^stream$/, replacement: 'rollup-plugin-node-polyfills/polyfills/stream' },
         { find: /^util$/, replacement: 'rollup-plugin-node-polyfills/polyfills/util' },
       ]
-    }
+    },
   };
 });
