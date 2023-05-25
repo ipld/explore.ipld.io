@@ -2,13 +2,20 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { reactVirtualized } from './vite-plugins/reactVirtualizedFix';
 
+import path from 'node:path';
+
+import babel from '@rollup/plugin-babel';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import replace from '@rollup/plugin-replace';
+
 /**
  * @type {import('vite').UserConfigFn}
  */
 export const viteConfig = (configEnv = {}) => {
   const mode = configEnv.mode ?? 'test' // playwright-ct doesn't pass configEnv
   let define = {}
-  if (!['test'].includes(mode)) {
+  if (!['test', 'production'].includes(mode)) {
     define = {
       global: 'globalThis',
       process: {
@@ -16,15 +23,52 @@ export const viteConfig = (configEnv = {}) => {
       }
     }
   }
+  /**
+   * @type {typeof import('vite').UserConfigExport}
+   */
   return {
     build: {
+      copyPublicDir: true,
+      target: 'esnext',
       outDir: 'build',
       commonjsOptions: {
-        requireReturnsDefault: 'auto',
         include: [
           /ipld-explorer-components/,
         ],
+        exclude: []
       },
+      rollupOptions: {
+        treeshake: false,
+        plugins: [
+          nodeResolve({
+            browser: true,
+          }),
+          // replace({
+          //   'process.env.NODE_ENV': JSON.stringify(mode)
+          // }),
+          babel({
+            presets: [
+              "@babel/preset-react",
+              ["@babel/preset-env", {
+                "useBuiltIns": "entry",
+                "corejs": "3.22"
+              }],
+            ],
+          }),
+          commonjs({
+            include: [
+              'node_modules/**',
+            ],
+            exclude: [
+              'node_modules/process-es6/**',
+            ],
+            namedExports: {
+              'node_modules/react/index.js': ['Children', 'Component', 'PropTypes', 'createElement'],
+              'node_modules/react-dom/index.js': ['render'],
+            },
+          }),
+        ],
+      }
     },
     define,
     // https://vitejs.dev/guide/dep-pre-bundling.html#monorepos-and-linked-dependencies
@@ -32,7 +76,7 @@ export const viteConfig = (configEnv = {}) => {
       include: [
         'ipld-explorer-components',
       ],
-      exclude: []
+      exclude: [],
     },
     plugins: [
       react(),
