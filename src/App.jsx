@@ -4,6 +4,7 @@ import { connect } from 'redux-bundler-react'
 import { getNavHelper } from 'internal-nav-helper'
 import Header from './components/header/Header'
 import UpdateAvailable from './components/update/UpdateAvailable'
+import { BrowserMetricsProvider } from '@ipfs-shipyard/ignite-metrics/browser-vanilla'
 
 export class App extends Component {
   static propTypes = {
@@ -33,7 +34,6 @@ export class App extends Component {
     const { telemetry } = this.state
 
     if (telemetry == null && !embed) {
-      const { BrowserMetricsProvider } = await import('@ipfs-shipyard/ignite-metrics/dist/src/BrowserMetricsProvider')
       const newTelemetry = new BrowserMetricsProvider({ appKey: '8bf7ee9fa77ec75c8173aa9fdc4877f5e2b61628' })
       window.telemetry = newTelemetry
       window.removeMetricsConsent = () => newTelemetry.removeConsent(['minimal'])

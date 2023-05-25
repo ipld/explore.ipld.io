@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { reactVirtualized } from './vite-plugins/reactVirtualizedFix';
 
 export default defineConfig(() => {
   return {
@@ -7,7 +8,8 @@ export default defineConfig(() => {
       outDir: 'build',
     },
     plugins: [
-      react()
+      react(),
+      reactVirtualized(),
     ],
   };
 });
