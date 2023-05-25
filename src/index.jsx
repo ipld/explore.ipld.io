@@ -13,7 +13,7 @@ import App from './App'
 import getStore from './bundles'
 import registerServiceWorker from './registerServiceWorker'
 
-const appVersion = process.env.REACT_APP_VERSION
+const appVersion = import.meta.env.REACT_APP_VERSION
 
 console.log(`IPLD Explorer - v${appVersion} - https://github.com/ipfs-shipyard/ipld-explorer`)
 
