@@ -4,8 +4,9 @@
   "version": "1.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build --stats",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "test": "react-scripts test --env=node",
     "test:coverage": "react-scripts test --coverage",
     "test:serve": "ecstatic build --cache=0 --port=3001",
@@ -54,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
+    "@vitejs/plugin-react": "^4.0.0",
     "bundlesize": "^0.18.1",
     "ecstatic": "^3.2.1",
     "enzyme": "^3.11.0",
@@ -62,8 +64,8 @@
     "patch-package": "^6.5.1",
     "prettier": "^1.16.4",
     "puppeteer": "^2.0.0",
-    "react-scripts": "^4.0.3",
     "react-test-renderer": "^16.13.1",
+    "vite": "^4.3.8",
     "webpack-bundle-analyzer": "^3.0.3"
   },
   "eslintConfig": {
