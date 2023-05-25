@@ -14,10 +14,11 @@ import replace from '@rollup/plugin-replace';
  */
 export const viteConfig = (configEnv = {}) => {
   const mode = configEnv.mode ?? 'test' // playwright-ct doesn't pass configEnv
-  let define = {}
+  let define = {
+    global: 'globalThis',
+  }
   if (!['test', 'production'].includes(mode)) {
     define = {
-      global: 'globalThis',
       process: {
         env: {}
       }
