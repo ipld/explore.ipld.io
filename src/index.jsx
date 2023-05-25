@@ -13,6 +13,12 @@ import i18n from './i18n'
 import App from './App'
 import getStore from './bundles'
 import registerServiceWorker from './registerServiceWorker'
+import { Buffer } from 'buffer';
+
+/**
+ * polyfills for vite
+ */
+globalThis.Buffer = Buffer
 
 const appVersion = import.meta.env.VITE_VERSION
 
