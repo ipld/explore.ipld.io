@@ -2,9 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { reactVirtualized } from './vite-plugins/reactVirtualizedFix';
 
-export default defineConfig(({mode}) => {
+/**
+ * @type {import('vite').UserConfigFn}
+ */
+export const viteConfig = (configEnv = {}) => {
+  const mode = configEnv.mode ?? 'test' // playwright-ct doesn't pass configEnv
   let define = {}
-  if (mode !== 'test') {
+  if (!['test'].includes(mode)) {
     define = {
       global: 'globalThis',
       process: {
@@ -58,4 +62,6 @@ export default defineConfig(({mode}) => {
       }
     },
   };
-});
+}
+
+export default defineConfig(viteConfig);

@@ -9,9 +9,9 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run --environment=node",
+    "test-ct": "playwright test -c playwright-ct.config.js",
     "test:coverage": "vitest run --coverage",
-    "test:serve": "ecstatic build --cache=0 --port=3001",
-    "test:e2e": "vitest --testNamePattern 'test/**/*.test.js'",
+    "test:e2e": "playwright test -c playwright.config.js",
     "test:e2e:ci": "URL=http://localhost:3001 run-p --race test:serve test:e2e",
     "analyze": "webpack-bundle-analyzer build/bundle-stats.json",
     "bundlesize": "bundlesize",
@@ -42,6 +42,7 @@
     "tachyons": "^4.12.0"
   },
   "devDependencies": {
+    "@playwright/experimental-ct-react": "^1.34.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@vitejs/plugin-react": "^4.0.0",
@@ -49,7 +50,6 @@
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "bundlesize": "^0.18.1",
-    "ecstatic": "^3.2.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "jsdom": "^22.0.0",
