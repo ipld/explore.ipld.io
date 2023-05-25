@@ -3,6 +3,7 @@ import 'ipfs-css'
 import 'react-virtualized/styles.css'
 import 'ipld-explorer-components/dist/components/object-info/LinksTable.css'
 import 'ipld-explorer-components/dist/components/loader/Loader.css'
+import 'regenerator-runtime'
 
 import React from 'react'
 import ReactDOM from 'react-dom'

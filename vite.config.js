@@ -7,6 +7,12 @@ export default defineConfig(() => {
     build: {
       outDir: 'build',
     },
+    define: {
+      global: {},
+      process: {
+        env: {}
+      }
+    },
     plugins: [
       react(),
       reactVirtualized(),

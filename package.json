@@ -65,6 +65,7 @@
     "prettier": "^1.16.4",
     "puppeteer": "^2.0.0",
     "react-test-renderer": "^16.13.1",
+    "regenerator-runtime": "^0.13.11",
     "vite": "^4.3.8",
     "webpack-bundle-analyzer": "^3.0.3"
   },
