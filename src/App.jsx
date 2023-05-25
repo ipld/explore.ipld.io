@@ -53,7 +53,7 @@ export class App extends Component {
     const Page = this.props.route
     const { embed } = this.props.queryObject
     return (
-      <div className='sans-serif' onClick={getNavHelper(this.props.doUpdateUrl)}>
+      <div data-testid="app" className='sans-serif' onClick={getNavHelper(this.props.doUpdateUrl)}>
         {embed ? null : <Header />}
         <div className='ph4-l pt4-l'>
           <Page embed={embed} />

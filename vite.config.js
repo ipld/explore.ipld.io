@@ -2,7 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { reactVirtualized } from './vite-plugins/reactVirtualizedFix';
 
-export default defineConfig(() => {
+export default defineConfig(({mode}) => {
+  let define = {}
+  if (mode !== 'test') {
+    define = {
+      global: 'globalThis',
+      process: {
+        env: {}
+      }
+    }
+  }
   return {
     build: {
       outDir: 'build',
@@ -13,12 +22,7 @@ export default defineConfig(() => {
         ],
       },
     },
-    define: {
-      global: 'globalThis',
-      process: {
-        env: {}
-      }
-    },
+    define,
     // https://vitejs.dev/guide/dep-pre-bundling.html#monorepos-and-linked-dependencies
     optimizeDeps: {
       include: [
@@ -38,6 +42,20 @@ export default defineConfig(() => {
         { find: /^stream$/, replacement: 'rollup-plugin-node-polyfills/polyfills/stream' },
         { find: /^util$/, replacement: 'rollup-plugin-node-polyfills/polyfills/util' },
       ]
+    },
+    // see https://www.robinwieruch.de/vitest-react-testing-library/
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './test/unit/setup.js',
+      include: [
+        'src\/**\/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
+      ],
+      deps: {
+        inline: [
+          "ipld-explorer-components"
+        ]
+      }
     },
   };
 });
