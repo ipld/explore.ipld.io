@@ -8,7 +8,7 @@ export default defineConfig(() => {
       outDir: 'build',
     },
     define: {
-      global: {},
+      global: 'globalThis',
       process: {
         env: {}
       }
