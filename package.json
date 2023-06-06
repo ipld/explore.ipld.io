@@ -51,7 +51,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@vitejs/plugin-react": "^4.0.0",
-    "@vitest/coverage-c8": "^0.31.1",
+    "@vitest/coverage-c8": "^0.32.0",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "bundlesize": "^0.18.1",
@@ -65,8 +65,8 @@
     "react-test-renderer": "^16.13.1",
     "regenerator-runtime": "^0.13.11",
     "rollup-plugin-node-polyfills": "^0.2.1",
-    "vite": "^4.3.8",
-    "vitest": "^0.31.1"
+    "vite": "^4.3.9",
+    "vitest": "^0.32.0"
   },
   "eslintConfig": {
     "extends": "react-app"
