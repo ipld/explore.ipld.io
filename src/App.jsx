@@ -7,7 +7,7 @@ import UpdateAvailable from './components/update/UpdateAvailable'
 
 export class App extends Component {
   static propTypes = {
-    doInitIpfs: PropTypes.func.isRequired,
+    doInitHelia: PropTypes.func.isRequired,
     doUpdateUrl: PropTypes.func.isRequired,
     queryObject: PropTypes.object.isRequired,
     registerServiceWorker: PropTypes.func,
@@ -46,7 +46,7 @@ export class App extends Component {
 
   componentDidMount() {
     this.initTelemetry()
-    this.props.doInitIpfs()
+    this.props.doInitHelia()
   }
 
   render() {
@@ -69,6 +69,6 @@ export default connect(
   'selectRoute',
   'selectQueryObject',
   'doUpdateUrl',
-  'doInitIpfs',
+  'doInitHelia',
   App
 )
