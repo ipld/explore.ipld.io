@@ -3,6 +3,7 @@ import 'ipfs-css'
 import 'react-virtualized/styles.css'
 import 'ipld-explorer-components/dist/components/object-info/LinksTable.css'
 import 'ipld-explorer-components/dist/components/loader/Loader.css'
+import 'regenerator-runtime'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -12,8 +13,14 @@ import i18n from './i18n'
 import App from './App'
 import getStore from './bundles'
 import registerServiceWorker from './registerServiceWorker'
+import { Buffer } from 'buffer';
 
-const appVersion = process.env.REACT_APP_VERSION
+/**
+ * polyfills for vite
+ */
+globalThis.Buffer = Buffer
+
+const appVersion = import.meta.env.VITE_VERSION
 
 console.log(`IPLD Explorer - v${appVersion} - https://github.com/ipfs-shipyard/ipld-explorer`)
 

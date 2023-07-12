@@ -65,5 +65,8 @@
         "paragraph1": "A visual representation of the node and its children."
       }
     }
+  },
+  "errors": {
+    "BlockFetchTimeoutError": "Failed to fetch content in {timeout}s. Please refresh the page to retry or try a different CID."
   }
 }
