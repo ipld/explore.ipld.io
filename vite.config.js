@@ -3,12 +3,9 @@ import react from '@vitejs/plugin-react';
 import { reactVirtualized } from './vite-plugins/reactVirtualizedFix';
 import svgLoader from 'vite-svg-loader'
 
-import path from 'node:path';
-
 import babel from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import replace from '@rollup/plugin-replace';
 
 /**
  * @type {import('vite').UserConfigFn}
@@ -45,9 +42,6 @@ export const viteConfig = (configEnv = {}) => {
           nodeResolve({
             browser: true,
           }),
-          // replace({
-          //   'process.env.NODE_ENV': JSON.stringify(mode)
-          // }),
           babel({
             presets: [
               "@babel/preset-react",
@@ -75,14 +69,12 @@ export const viteConfig = (configEnv = {}) => {
     define,
     // https://vitejs.dev/guide/dep-pre-bundling.html#monorepos-and-linked-dependencies
     optimizeDeps: {
-      include: [
-        'ipld-explorer-components',
-      ],
+      include: [],
       exclude: [],
     },
     plugins: [
       react(),
-      svgLoader(),
+      svgLoader({ defaultImport: 'url' }),
       reactVirtualized(),
     ],
     resolve: {
@@ -107,9 +99,7 @@ export const viteConfig = (configEnv = {}) => {
         optimizer: {
           ssr: {},
           web: {
-            include: [
-              // 'ipld-explorer-components',
-            ],
+            include: [],
             exclude: [
               'ipld-explorer-components',
             ],
