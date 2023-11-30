@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { reactVirtualized } from './vite-plugins/reactVirtualizedFix';
+import svgLoader from 'vite-svg-loader'
 
 import path from 'node:path';
 
@@ -81,6 +82,7 @@ export const viteConfig = (configEnv = {}) => {
     },
     plugins: [
       react(),
+      svgLoader(),
       reactVirtualized(),
     ],
     resolve: {
@@ -100,10 +102,22 @@ export const viteConfig = (configEnv = {}) => {
       include: [
         'src\/**\/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
       ],
+
       deps: {
-        inline: [
-          "ipld-explorer-components"
-        ]
+        optimizer: {
+          ssr: {},
+          web: {
+            include: [
+              // 'ipld-explorer-components',
+            ],
+            exclude: [
+              'ipld-explorer-components',
+            ],
+          }
+        },
+        web: {
+          transformAssets: {}
+        }
       }
     },
   };
