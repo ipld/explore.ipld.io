@@ -55,7 +55,7 @@
     "@vitest/coverage-c8": "^0.32.0",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
-    "bundlesize": "^0.18.1",
+    "bundlesize": "^0.18.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "jsdom": "^22.0.0",
