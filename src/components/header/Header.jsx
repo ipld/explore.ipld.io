@@ -1,9 +1,10 @@
 import React from 'react'
 import ipfsLogo from './ipfs-logo.svg'
 import { IpldExploreForm, IpldCarExploreForm } from 'ipld-explorer-components'
-import { withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
-const Header = ({ t }) => {
+const Header = () => {
+  const { t } = useTranslation('explore')
   let activeColor = 'navy 0-100'
   let inActiveColor = 'navy o-50'
   const [exploreFormType, setExploreFormType] = React.useState('cid')
@@ -50,4 +51,4 @@ const Header = ({ t }) => {
   )
 }
 
-export default withTranslation('explore')(Header)
+export default Header

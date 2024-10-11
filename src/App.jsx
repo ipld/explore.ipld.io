@@ -1,18 +1,35 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'redux-bundler-react'
-import { getNavHelper } from 'internal-nav-helper'
+import React, { Component, useState, useEffect } from 'react'
 import Header from './components/header/Header'
 import UpdateAvailable from './components/update/UpdateAvailable'
+import { ExplorePage, StartExploringPage } from 'ipld-explorer-components/pages'
+
+
+
+const Page = () => {
+  const [route, setRoute] = useState(window.location.hash.slice(1) ?? '/')
+
+  useEffect(() => {
+    const onHashChange = () => { setRoute(window.location.hash.slice(1) ?? '/') }
+    window.addEventListener('hashchange', onHashChange)
+    return () => { window.removeEventListener('hashchange', onHashChange) }
+  }, [])
+
+  const RenderPage = () => {
+    switch (true) {
+      case route.startsWith('/explore'):
+        return <ExplorePage />
+      case route === '/':
+      default:
+        return <StartExploringPage />
+    }
+  }
+
+  return (
+    <RenderPage />
+  )
+}
 
 export class App extends Component {
-  static propTypes = {
-    doInitHelia: PropTypes.func.isRequired,
-    doUpdateUrl: PropTypes.func.isRequired,
-    queryObject: PropTypes.object.isRequired,
-    registerServiceWorker: PropTypes.func,
-    route: PropTypes.oneOfType([PropTypes.func, PropTypes.element, PropTypes.elementType]).isRequired
-  }
 
   constructor(props) {
     super(props)
@@ -26,30 +43,20 @@ export class App extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.doInitHelia()
-  }
-
   render() {
     const { showUpdateAvailable } = this.state
-    const Page = this.props.route
-    const { embed } = this.props.queryObject
+    const embed = false
     return (
-      <div data-testid="app" className='sans-serif' onClick={getNavHelper(this.props.doUpdateUrl)}>
+      <div data-testid="app" className='sans-serif'>
         {embed ? null : <Header />}
         <div className='ph4-l pt4-l'>
-          <Page embed={embed} />
+          <Page />
         </div>
         {showUpdateAvailable ? <UpdateAvailable /> : null}
       </div>
     )
   }
+
 }
 
-export default connect(
-  'selectRoute',
-  'selectQueryObject',
-  'doUpdateUrl',
-  'doInitHelia',
-  App
-)
+export default App
