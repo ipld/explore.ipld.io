@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
 const port = 3000
 
@@ -10,7 +10,7 @@ export default defineConfig({
   fullyParallel: true,
 
   // Fail the build on CI if you accidentally left test.only in the source code.
-  forbidOnly: !!process.env.CI,
+  forbidOnly: Boolean(process.env.CI),
 
   // Retry on CI only.
   retries: process.env.CI ? 2 : 0,
@@ -30,20 +30,20 @@ export default defineConfig({
 
     // Collect trace when retrying the failed test.
     // trace: 'on-first-retry',
-    trace: 'on-first-retry',
+    trace: 'on-first-retry'
   },
   // Configure projects for major browsers.
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+      use: { ...devices['Desktop Chrome'] }
+    }
   ],
   // Run your local dev server before starting the tests.
   webServer: {
     command: `npx vite --port ${port}`,
     timeout: 10 * 1000,
     port,
-    reuseExistingServer: !process.env.CI,
-  },
-});
+    reuseExistingServer: !process.env.CI
+  }
+})
