@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 // @ts-check
 /**
  * @type {import('vite').UserConfigFn}
@@ -7,7 +7,7 @@ import react from '@vitejs/plugin-react';
 export const viteConfig = (configEnv = {}) => {
   const mode = configEnv.mode ?? 'test'
   let define = {
-    global: 'globalThis',
+    global: 'globalThis'
   }
   if (!['test', 'production'].includes(mode)) {
     define = {
@@ -29,17 +29,17 @@ export const viteConfig = (configEnv = {}) => {
       },
       rollupOptions: {
         treeshake: true,
-        plugins: [],
+        plugins: []
       },
-      emptyOutDir: true,
+      emptyOutDir: true
     },
     define,
     // https://vitejs.dev/guide/dep-pre-bundling.html#monorepos-and-linked-dependencies
     optimizeDeps: {
-      exclude: [],
+      exclude: []
     },
     plugins: [
-      react(),
+      react()
     ],
     resolve: {
       alias: []
@@ -55,12 +55,12 @@ export const viteConfig = (configEnv = {}) => {
       server: {
         deps: {
           inline: [
-            "ipld-explorer-components"
+            'ipld-explorer-components'
           ]
         }
       }
-    },
-  };
+    }
+  }
 }
 
-export default defineConfig(viteConfig);
+export default defineConfig(viteConfig)
