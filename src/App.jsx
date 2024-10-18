@@ -3,8 +3,6 @@ import Header from './components/header/Header'
 import UpdateAvailable from './components/update/UpdateAvailable'
 import { ExplorePage, StartExploringPage } from 'ipld-explorer-components/pages'
 
-
-
 const Page = () => {
   const [route, setRoute] = useState(window.location.hash.slice(1) ?? '/')
 

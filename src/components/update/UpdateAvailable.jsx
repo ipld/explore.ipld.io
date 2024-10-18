@@ -1,8 +1,8 @@
 import React from 'react'
-import { Trans, withTranslation } from 'react-i18next'
+import { Trans } from 'react-i18next'
 
 const UpdateAvailable = () => {
-  const t = useTranslation('explore')
+  const t = useTranslation('app')
   return (
     <div className='fixed bottom-0 w-100 tc'>
       <div className='dib f5 lh-copy avenir ph4 pv3 white bg-green br2 br--top'>
