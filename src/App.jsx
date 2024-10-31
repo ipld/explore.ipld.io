@@ -1,55 +1,54 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'redux-bundler-react'
-import { getNavHelper } from 'internal-nav-helper'
+/* eslint-disable react/prop-types */
+import { useExplore, useHelia, ExplorePage, StartExploringPage } from 'ipld-explorer-components'
+import React, { useState, useEffect } from 'react'
 import Header from './components/header/Header'
 import UpdateAvailable from './components/update/UpdateAvailable'
 
-export class App extends Component {
-  static propTypes = {
-    doInitHelia: PropTypes.func.isRequired,
-    doUpdateUrl: PropTypes.func.isRequired,
-    queryObject: PropTypes.object.isRequired,
-    registerServiceWorker: PropTypes.func,
-    route: PropTypes.oneOfType([PropTypes.func, PropTypes.element, PropTypes.elementType]).isRequired
-  }
+const Page = () => {
+  const { setExplorePath, exploreState: { path } } = useExplore()
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      showUpdateAvailable: false,
+  useEffect(() => {
+    const onHashChange = () => {
+      setExplorePath(window.location.hash)
     }
-    if (props.registerServiceWorker) {
-      props.registerServiceWorker({
-        onUpdate: () => this.setState({ showUpdateAvailable: true })
-      })
-    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => { window.removeEventListener('hashchange', onHashChange) }
+  }, [setExplorePath])
+
+  if (path == null || path === '') {
+    return <StartExploringPage />
   }
 
-  componentDidMount() {
-    this.props.doInitHelia()
-  }
-
-  render() {
-    const { showUpdateAvailable } = this.state
-    const Page = this.props.route
-    const { embed } = this.props.queryObject
-    return (
-      <div data-testid="app" className='sans-serif' onClick={getNavHelper(this.props.doUpdateUrl)}>
-        {embed ? null : <Header />}
-        <div className='ph4-l pt4-l'>
-          <Page embed={embed} />
-        </div>
-        {showUpdateAvailable ? <UpdateAvailable /> : null}
-      </div>
-    )
-  }
+  return <ExplorePage />
 }
 
-export default connect(
-  'selectRoute',
-  'selectQueryObject',
-  'doUpdateUrl',
-  'doInitHelia',
-  App
-)
+const App = ({ registerServiceWorker }) => {
+  const [showUpdateAvailable, setShowUpdateAvailable] = useState(false)
+  const { helia, doInitHelia } = useHelia()
+
+  useEffect(() => {
+    if (helia == null) {
+      doInitHelia()
+    }
+  }, [helia])
+
+  useEffect(() => {
+    if (registerServiceWorker) {
+      registerServiceWorker({
+        onUpdate: () => setShowUpdateAvailable(true)
+      })
+    }
+  }, [registerServiceWorker])
+
+  return (
+    <div data-testid="app" className='sans-serif'>
+      <Header />
+      <div className='ph4-l pt4-l'>
+        <Page />
+      </div>
+      {showUpdateAvailable ? <UpdateAvailable /> : null}
+    </div>
+  )
+}
+
+export default App
