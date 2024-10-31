@@ -1,17 +1,18 @@
 import 'tachyons'
 import 'ipfs-css'
 import 'ipld-explorer-components/css'
+import { Buffer } from 'buffer'
+import { HeliaProvider, ExploreProvider } from 'ipld-explorer-components/providers'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { I18nextProvider } from 'react-i18next'
-import i18n from './i18n'
 import App from './App'
+import i18n from './i18n'
 import registerServiceWorker from './registerServiceWorker'
-import { Buffer } from 'buffer';
-import { HeliaProvider, ExploreProvider } from 'ipld-explorer-components/providers'
 
 /**
  * polyfills for ipld-explorer-components.
+ *
  * @see https://github.com/ipfs/ipld-explorer-components/issues/453
  */
 globalThis.Buffer = Buffer

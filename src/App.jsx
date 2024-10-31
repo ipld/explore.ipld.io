@@ -1,60 +1,54 @@
-import React, { Component, useState, useEffect } from 'react'
+/* eslint-disable react/prop-types */
+import { useExplore, useHelia, ExplorePage, StartExploringPage } from 'ipld-explorer-components'
+import React, { useState, useEffect } from 'react'
 import Header from './components/header/Header'
 import UpdateAvailable from './components/update/UpdateAvailable'
-import { ExplorePage, StartExploringPage } from 'ipld-explorer-components/pages'
 
 const Page = () => {
-  const [route, setRoute] = useState(window.location.hash.slice(1) ?? '/')
+  const { setExplorePath, exploreState: { path } } = useExplore()
 
   useEffect(() => {
-    const onHashChange = () => { setRoute(window.location.hash.slice(1) ?? '/') }
+    const onHashChange = () => {
+      setExplorePath(window.location.hash)
+    }
     window.addEventListener('hashchange', onHashChange)
     return () => { window.removeEventListener('hashchange', onHashChange) }
-  }, [])
+  }, [setExplorePath])
 
-  const RenderPage = () => {
-    switch (true) {
-      case route.startsWith('/explore'):
-        return <ExplorePage />
-      case route === '/':
-      default:
-        return <StartExploringPage />
-    }
+  if (path == null || path === '') {
+    return <StartExploringPage />
   }
 
-  return (
-    <RenderPage />
-  )
+  return <ExplorePage />
 }
 
-export class App extends Component {
+const App = ({ registerServiceWorker }) => {
+  const [showUpdateAvailable, setShowUpdateAvailable] = useState(false)
+  const { helia, doInitHelia } = useHelia()
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      showUpdateAvailable: false,
+  useEffect(() => {
+    if (helia == null) {
+      doInitHelia()
     }
-    if (props.registerServiceWorker) {
-      props.registerServiceWorker({
-        onUpdate: () => this.setState({ showUpdateAvailable: true })
+  }, [helia])
+
+  useEffect(() => {
+    if (registerServiceWorker) {
+      registerServiceWorker({
+        onUpdate: () => setShowUpdateAvailable(true)
       })
     }
-  }
+  }, [registerServiceWorker])
 
-  render() {
-    const { showUpdateAvailable } = this.state
-    const embed = false
-    return (
-      <div data-testid="app" className='sans-serif'>
-        {embed ? null : <Header />}
-        <div className='ph4-l pt4-l'>
-          <Page />
-        </div>
-        {showUpdateAvailable ? <UpdateAvailable /> : null}
+  return (
+    <div data-testid="app" className='sans-serif'>
+      <Header />
+      <div className='ph4-l pt4-l'>
+        <Page />
       </div>
-    )
-  }
-
+      {showUpdateAvailable ? <UpdateAvailable /> : null}
+    </div>
+  )
 }
 
 export default App

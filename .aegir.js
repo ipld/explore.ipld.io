@@ -20,7 +20,6 @@ export default {
     ],
     productionIgnorePatterns: [
       '.aegir.js',
-      '.eslintrc.js',
       'vite.config.js',
       '/test',
       '.storybook',
