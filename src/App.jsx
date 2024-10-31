@@ -15,7 +15,7 @@ const Page = () => {
     return () => { window.removeEventListener('hashchange', onHashChange) }
   }, [setExplorePath])
 
-  if (path == null || path === '') {
+  if (path == null || path === '' || path === '#/') {
     return <StartExploringPage />
   }
 
