@@ -1,5 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
+
 // @ts-check
 /**
  * @type {import('vite').UserConfigFn}
@@ -39,7 +41,15 @@ export const viteConfig = (configEnv = {}) => {
       exclude: []
     },
     plugins: [
-      react()
+      react(),
+      viteStaticCopy({
+        targets: [
+          {
+            src: 'node_modules/ipld-explorer-components/dist/locales',
+            dest: '.'
+          }
+        ]
+      })
     ],
     resolve: {
       alias: []

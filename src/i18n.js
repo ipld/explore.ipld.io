@@ -29,10 +29,6 @@ await i18n
           loadPath: (lngs, namespaces) => {
             const lang = lngs[0]
             const ns = namespaces[0]
-            if (ns === 'explore') {
-              // use the ipld-explorer-components locales
-              return 'node_modules/ipld-explorer-components/dist/locales/{{lng}}/{{ns}}.json'
-            }
 
             return `locales/${lang}/${ns}.json`
           }
