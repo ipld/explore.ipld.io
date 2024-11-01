@@ -4,7 +4,6 @@ export default {
   dependencyCheck: {
     ignore: [
       // .jsx files aren't checked properly.
-      'buffer', // needed for a dependency on Buffer global in dependency
       'ipfs-css', // needed for styles
       'tachyons', // needed for styles
       'react', // framework
