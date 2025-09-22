@@ -8,17 +8,17 @@
 
 ## Background
 
-This repo is responsible for standalone tool that lives at https://explore.ipld.io  
+This repo is responsible for standalone tool that lives at https://explore.ipld.io
 Component code lives in a separate repo at [ipld-explorer-components](https://github.com/ipfs/ipld-explorer-components)
 
-The app will use HTTP API via [`ipfs-http-client`](https://www.npmjs.com/package/ipfs-http-client) provided by locally running IPFS node with correct CORS headers set up, and fallback to using [js-ipfs](https://github.com/ipfs/js-ipfs) otherwise.
+The ipld-explorer-components library uses [`@helia/http`](https://www.npmjs.com/package/@helia/http) to query any local IPFS node, and the network, for content. See https://github.com/ipfs/ipld-explorer-components/blob/8718cd07cd27a82fdeaa25b92c6809ba3cec489c/src/providers/helia.tsx and https://github.com/ipfs/ipld-explorer-components/blob/8718cd07cd27a82fdeaa25b92c6809ba3cec489c/src/lib/init-helia.ts#L23 for specifics.
 
-The app is built with [`create-react-app`](https://github.com/facebook/create-react-app). Please read the [docs](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#table-of-contents). 
+The app is built with [`Vite`](https://vitejs.dev/). Please read the [docs](https://vitejs.dev/guide/).
 
 
 ## Install
 
-With `node` > 10 (but < 12) and `npm` @ 6+ installed, run
+With `node` and `npm` installed, run
 
 ```js
 npm install
@@ -26,7 +26,7 @@ npm install
 
 ## Usage
 
-When developing you can run the [dev server](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start), the [unit tests](https://facebook.github.io/jest/), and the [storybook](https://storybook.js.org/) component viewer and see the results of your changes as you save files.
+When developing you can run the [dev server](https://vitejs.dev/guide/cli.html#dev), the [unit tests](https://vitest.dev/), and the [storybook](https://storybook.js.org/) component viewer and see the results of your changes as you save files.
 
 In separate shells run the following:
 
@@ -36,7 +36,7 @@ npm test
 ```
 
 ```sh
-# Run the dev server @ http://localhost:3000
+# Run the dev server @ http://localhost:5173
 npm start
 ```
 
@@ -71,11 +71,11 @@ The following command will run the app tests, watch source files and re-run the 
 npm test
 ```
 
-The uses Jest to run the isolated unit tests. Unit test files are located next to the component they test and have the same file name, but with the extension `.test.js`
+The app uses Vitest to run the isolated unit tests. Unit test files are located next to the component they test and have the same file name, but with the extension `.test.js`
 
 ### Linting
 
-The following command will perform [`standard`](https://standardjs.com/) linting on the code:
+The following command will perform linting on the code using [`aegir`](https://github.com/ipfs/aegir):
 
 ```sh
 npm run lint
