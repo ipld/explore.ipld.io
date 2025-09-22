@@ -1,0 +1,74 @@
+{
+  "appName": "Explorador d'IPLD",
+  "tabName": "Explora",
+  "homeLink": "Inici",
+  "UpdateAvailable": {
+    "paragraph1": "A new version of IPLD Explorer is available; <1>please reload</1>."
+  },
+  "StartExploringPage": {
+    "title": "Explora - IPLD",
+    "header": "Explora el bosc de Merkle",
+    "leadParagraph": "Enganxa un CID al quadre de text per trobar el node IPLD al que es refereix, o tria un conjunt de dades acceptat.",
+    "noDataAvailable": "No hi ha dades disponibles"
+  },
+  "AboutIpld": {
+    "paragraph1": "<0>IPLD is <1>the data model of the content-addressable web.</1> It allows us to treat all hash-linked data structures as subsets of a unified information space, unifying all data models that link data with hashes as instances of IPLD.</0>",
+    "paragraph2": "<0>Content addressing through hashes has become a widely-used means of connecting data in distributed systems, from the blockchains that run your favorite cryptocurrencies, to the commits that back your code, to the web’s content at large. Yet, whilst all of these tools rely on some common primitives, their specific underlying data structures are not interoperable.</0>",
+    "paragraph3": "<0>Enter IPLD: a single namespace for all hash-inspired protocols. Through IPLD, links can be traversed across protocols, allowing you to explore data regardless of the underlying protocol.</0>"
+  },
+  "ExplorePage": {
+    "title": "Explorant - IPLD"
+  },
+  "IpldExploreForm": {
+    "explore": "Explora"
+  },
+  "IpldCarExploreForm": {
+    "imports": "Importa",
+    "uploadCarFile": "Upload CAR File"
+  },
+  "CidInfo": {
+    "header": "Info del CID",
+    "hashDigest": "Hash digest"
+  },
+  "ObjectInfo": {
+    "publicGateway": "View on Public Gateway",
+    "privateGateway": "View on Local Gateway"
+  },
+  "base": "base",
+  "version": "versió",
+  "codec": "codec",
+  "multihash": "multihash",
+  "tour": {
+    "projects": {
+      "title": "Conjunt de dades acceptats",
+      "paragraph1": "Explore the featured datasets or paste a CID to see how that data is structured and linked across protocols."
+    },
+    "explorer": {
+      "step1": {
+        "title": "Explorador d'IPLD",
+        "paragraph1": "Your journey with IPLD Explorer starts here. Click \"Next\" to learn more."
+      },
+      "step2": {
+        "title": "Ruta de navegació",
+        "paragraph1": "The path that leads to this node.",
+        "paragraph2": "Click on it to traverse to its parents or children."
+      },
+      "step3": {
+        "title": "Info del node",
+        "paragraph1": "Aquí tens informació detallada sobre el node i el pots obrir al getaway d'IPFS.",
+        "paragraph2": "Si el node és un directori pots veure i navegar en els seus fills."
+      },
+      "step4": {
+        "title": "Info del CID",
+        "paragraph1": "El CID descomposat per tal que puguins aprendre el seu significat."
+      },
+      "step5": {
+        "title": "Representació visual",
+        "paragraph1": "Una representació visual del node i els seus fills."
+      }
+    }
+  },
+  "errors": {
+    "BlockFetchTimeoutError": "Failed to fetch content in {timeout}s. Please refresh the page to retry or try a different CID."
+  }
+}

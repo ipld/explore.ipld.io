@@ -92,7 +92,24 @@ npm run test:coverage
 
 ## Translations
 
-The translations are stored on [./public/locales](./public/locales) and the English version is the source of truth. We use Transifex to help us translate WebUI to another languages.
+The translations are automatically handled by Vite's build process. The app uses a two-tier translation system:
+
+1. **Primary translations**: Loaded from `ipld-explorer-components` package (namespace: `explore`)
+2. **Fallback translations**: Local translations in `./public/locales` (namespace: `app`)
+
+### Automatic Translation Handling
+
+Translations are automatically processed during the build:
+
+- **Vite static copy**: The `viteStaticCopy` plugin automatically copies `ipld-explorer-components/dist/locales` to the build directory
+- **Fallback system**: The i18n configuration uses `app.json` files as fallback when primary translations fail to load
+- **Language detection**: The app automatically detects user language and falls back through language variants (e.g., `en-US` → `en`)
+
+### Translation Structure
+
+The build process copies `explore.json` files from `ipld-explorer-components/dist/locales/{lang}/` to `build/locales/{lang}/explore.json`, while local `app.json` files in `public/locales/{lang}/` serve as fallbacks.
+
+### Contributing Translations
 
 **If you're interested in contributing a translation**, go to [our page on Transifex](https://www.transifex.com/ipfs/ipfs-webui/translate/), create an account, pick a language and start translating.
 
